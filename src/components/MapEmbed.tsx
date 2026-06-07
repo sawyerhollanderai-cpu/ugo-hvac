@@ -17,8 +17,9 @@ export default function MapEmbed({
     <div
       className={`relative rounded-2xl overflow-hidden ${className}`}
       style={{
-        border: "1px solid rgba(30,111,191,0.2)",
-        background: "#112240",
+        border: "1px solid #e2e8f0",
+        background: "#ffffff",
+        boxShadow: "0 4px 24px rgba(15,23,42,0.06)",
       }}
     >
       <iframe
@@ -28,7 +29,7 @@ export default function MapEmbed({
         height={height}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        style={{ border: 0, display: "block", filter: "grayscale(0.2)" }}
+        style={{ border: 0, display: "block" }}
       />
     </div>
   );

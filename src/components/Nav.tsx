@@ -19,6 +19,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const onHome = pathname === "/";
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -28,15 +29,20 @@ export default function Nav() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // On non-home pages, treat as already "scrolled" (no dark hero behind nav)
+  const isLight = scrolled || !onHome;
+  const linkColorDefault = isLight ? "#0a1628" : "#e2e8f0";
+  const hamburgerColor = isLight ? "#0a1628" : "#e2e8f0";
+
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled
-          ? "rgba(10,22,40,0.97)"
+        background: isLight
+          ? "rgba(255,255,255,0.97)"
           : "linear-gradient(to bottom, rgba(10,22,40,0.85), transparent)",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(30,111,191,0.2)" : "none",
+        backdropFilter: isLight ? "blur(12px)" : "none",
+        borderBottom: isLight ? "1px solid #e2e8f0" : "none",
       }}
     >
       <nav className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
@@ -48,9 +54,18 @@ export default function Nav() {
             height={48}
             className="h-10 w-auto"
           />
-          <span className="hidden sm:block text-sm font-semibold text-slate leading-tight">
-            Ugo DiGrazia<br />
-            <span className="text-muted font-normal">Heating & Cooling</span>
+          <span
+            className="hidden sm:block text-sm font-semibold leading-tight"
+            style={{ color: linkColorDefault }}
+          >
+            Ugo DiGrazia
+            <br />
+            <span
+              className="font-normal"
+              style={{ color: isLight ? "#475569" : "#94a3b8" }}
+            >
+              Heating &amp; Cooling
+            </span>
           </span>
         </Link>
 
@@ -62,7 +77,7 @@ export default function Nav() {
                 href={href}
                 className="text-sm font-medium transition-colors duration-200"
                 style={{
-                  color: pathname === href ? "#f59e0b" : "#e2e8f0",
+                  color: pathname === href ? "#f59e0b" : linkColorDefault,
                 }}
               >
                 {label}
@@ -87,18 +102,20 @@ export default function Nav() {
         >
           <div className="w-6 space-y-1.5">
             <span
-              className="block h-0.5 bg-slate transition-all duration-300"
+              className="block h-0.5 transition-all duration-300"
               style={{
+                background: hamburgerColor,
                 transform: open ? "translateY(8px) rotate(45deg)" : "none",
               }}
             />
             <span
-              className="block h-0.5 bg-slate transition-all duration-300"
-              style={{ opacity: open ? 0 : 1 }}
+              className="block h-0.5 transition-all duration-300"
+              style={{ background: hamburgerColor, opacity: open ? 0 : 1 }}
             />
             <span
-              className="block h-0.5 bg-slate transition-all duration-300"
+              className="block h-0.5 transition-all duration-300"
               style={{
+                background: hamburgerColor,
                 transform: open ? "translateY(-8px) rotate(-45deg)" : "none",
               }}
             />
@@ -114,7 +131,10 @@ export default function Nav() {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="lg:hidden overflow-hidden"
-            style={{ background: "rgba(10,22,40,0.98)" }}
+            style={{
+              background: "rgba(255,255,255,0.98)",
+              borderBottom: "1px solid #e2e8f0",
+            }}
           >
             <ul className="flex flex-col px-6 py-4 gap-4">
               {links.map(({ href, label }) => (
@@ -122,7 +142,9 @@ export default function Nav() {
                   <Link
                     href={href}
                     className="block text-base font-medium py-2"
-                    style={{ color: pathname === href ? "#f59e0b" : "#e2e8f0" }}
+                    style={{
+                      color: pathname === href ? "#f59e0b" : "#0a1628",
+                    }}
                   >
                     {label}
                   </Link>

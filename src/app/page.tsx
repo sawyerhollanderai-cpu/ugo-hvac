@@ -103,21 +103,23 @@ const serviceArea = [
   "Newington", "Rocky Hill", "West Hartford", "Wethersfield",
 ];
 
+const CARD_SHADOW = "0 4px 24px rgba(15,23,42,0.06)";
+
 export default function Home() {
   return (
     <>
       <HeroSection />
 
       {/* Stats bar */}
-      <section style={{ background: "#112240" }}>
+      <section style={{ background: "#f8fafc" }}>
         <div className="max-w-6xl mx-auto px-6 py-10">
-          <div className="grid grid-cols-3 divide-x" style={{ borderColor: "rgba(30,111,191,0.2)" }}>
+          <div className="grid grid-cols-3 divide-x" style={{ borderColor: "#e2e8f0" }}>
             {stats.map(({ value, label }) => (
               <div key={label} className="text-center px-6">
                 <p className="text-3xl md:text-4xl font-bold" style={{ color: "#f59e0b" }}>
                   {value}
                 </p>
-                <p className="text-xs md:text-sm mt-1" style={{ color: "#94a3b8" }}>
+                <p className="text-xs md:text-sm mt-1" style={{ color: "#475569" }}>
                   {label}
                 </p>
               </div>
@@ -126,7 +128,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How can we help? — guide strip */}
+      {/* How can we help? */}
       <section className="pt-20 pb-4 px-6">
         <div className="max-w-6xl mx-auto">
           <FadeIn>
@@ -134,7 +136,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
                 How Can We Help?
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#e2e8f0" }}>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#0a1628" }}>
                 Where do you want to start?
               </h2>
             </div>
@@ -145,19 +147,20 @@ export default function Home() {
                 <Link
                   key={label}
                   href={href}
-                  className="group relative px-4 py-5 rounded-2xl text-center transition-all duration-200"
+                  className="group relative px-4 py-5 rounded-2xl text-center transition-all duration-200 hover:-translate-y-0.5"
                   style={{
-                    background: "#112240",
-                    border: "1px solid rgba(30,111,191,0.2)",
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: CARD_SHADOW,
                   }}
                 >
                   <div
                     className="w-8 h-8 rounded-full mx-auto mb-3 flex items-center justify-center text-sm font-bold transition-transform duration-200 group-hover:scale-110"
-                    style={{ background: "rgba(245,158,11,0.15)", color: "#f59e0b" }}
+                    style={{ background: "#fff7ed", color: "#f59e0b" }}
                   >
                     {i + 1}
                   </div>
-                  <p className="text-xs font-semibold leading-tight" style={{ color: "#e2e8f0" }}>
+                  <p className="text-xs font-semibold leading-tight" style={{ color: "#0a1628" }}>
                     {label}
                   </p>
                 </Link>
@@ -175,7 +178,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
                 What We Do
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#e2e8f0" }}>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#0a1628" }}>
                 Complete Home Comfort Solutions
               </h2>
             </div>
@@ -186,8 +189,12 @@ export default function Home() {
               <FadeIn key={title} delay={i * 0.08}>
                 <Link
                   href={href}
-                  className="group block rounded-2xl overflow-hidden relative h-full"
-                  style={{ background: "#112240" }}
+                  className="group block rounded-2xl overflow-hidden relative h-full transition-all duration-200 hover:-translate-y-1"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: CARD_SHADOW,
+                  }}
                 >
                   <div className="relative h-52 overflow-hidden">
                     <Image
@@ -200,15 +207,15 @@ export default function Home() {
                       className="absolute inset-0"
                       style={{
                         background:
-                          "linear-gradient(to top, rgba(10,22,40,0.85) 0%, transparent 60%)",
+                          "linear-gradient(to top, rgba(10,22,40,0.55) 0%, transparent 50%)",
                       }}
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-lg font-semibold mb-2" style={{ color: "#e2e8f0" }}>
+                    <h3 className="text-lg font-semibold mb-2" style={{ color: "#0a1628" }}>
                       {title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+                    <p className="text-sm leading-relaxed" style={{ color: "#475569" }}>
                       {description}
                     </p>
                     <p
@@ -229,9 +236,10 @@ export default function Home() {
                 href="/services"
                 className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200"
                 style={{
-                  background: "rgba(30,111,191,0.15)",
-                  color: "#e2e8f0",
-                  border: "1px solid rgba(30,111,191,0.3)",
+                  background: "#ffffff",
+                  color: "#0a1628",
+                  border: "1px solid #e2e8f0",
+                  boxShadow: CARD_SHADOW,
                 }}
               >
                 See All Services &rarr;
@@ -242,16 +250,18 @@ export default function Home() {
       </section>
 
       {/* About strip */}
-      <section className="py-24 px-6" style={{ background: "#112240" }}>
+      <section className="py-24 px-6" style={{ background: "#f8fafc" }}>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <FadeIn direction="left">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+            <div
+              className="relative rounded-2xl overflow-hidden aspect-[4/3]"
+              style={{ background: "#ffffff", border: "1px solid #e2e8f0", boxShadow: CARD_SHADOW }}
+            >
               <Image
                 src={`${BASE}/60-years-of-service.png`}
                 alt="60 Years of Service"
                 fill
                 className="object-contain p-8"
-                style={{ background: "rgba(10,22,40,0.5)" }}
               />
             </div>
           </FadeIn>
@@ -259,16 +269,16 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
               Our Story
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "#e2e8f0" }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "#0a1628" }}>
               Trusted by Hartford Families for Over 60 Years
             </h2>
-            <p className="text-base leading-relaxed mb-6" style={{ color: "#94a3b8" }}>
+            <p className="text-base leading-relaxed mb-6" style={{ color: "#475569" }}>
               Founder Ugo DiGrazia emigrated from Sicily to Hartford in 1961
               and started the business in 1972. Today his son Ugo Jr. carries
               on the family trade — and the company still ranks in the top
               20% of independent Carrier dealers in Connecticut.
             </p>
-            <p className="text-base leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
+            <p className="text-base leading-relaxed mb-8" style={{ color: "#475569" }}>
               We&apos;re not a call center — we&apos;re your neighbors. When you
               call us, you get honest answers, fair pricing, and technicians who
               treat your home like their own.
@@ -293,7 +303,7 @@ export default function Home() {
                 <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
                   Current Offers
                 </p>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#e2e8f0" }}>
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#0a1628" }}>
                   Carrier Promotions Available Now
                 </h2>
               </div>
@@ -311,10 +321,17 @@ export default function Home() {
               <FadeIn key={title} delay={i * 0.1}>
                 <Link
                   href="/financing"
-                  className="group block rounded-2xl overflow-hidden h-full"
-                  style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+                  className="group block rounded-2xl overflow-hidden h-full transition-all duration-200 hover:-translate-y-1"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: CARD_SHADOW,
+                  }}
                 >
-                  <div className="relative h-44 overflow-hidden flex items-center justify-center" style={{ background: "#ffffff" }}>
+                  <div
+                    className="relative h-44 overflow-hidden flex items-center justify-center"
+                    style={{ background: "#f1f5f9" }}
+                  >
                     <Image
                       src={img}
                       alt={title}
@@ -323,10 +340,10 @@ export default function Home() {
                     />
                   </div>
                   <div className="p-5">
-                    <h3 className="text-base font-semibold mb-2" style={{ color: "#e2e8f0" }}>
+                    <h3 className="text-base font-semibold mb-2" style={{ color: "#0a1628" }}>
                       {title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+                    <p className="text-sm leading-relaxed" style={{ color: "#475569" }}>
                       {description}
                     </p>
                   </div>
@@ -338,14 +355,14 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 px-6" style={{ background: "#112240" }}>
+      <section className="py-24 px-6" style={{ background: "#f8fafc" }}>
         <div className="max-w-4xl mx-auto">
           <FadeIn>
             <div className="text-center mb-14">
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
                 Customer Reviews
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "#e2e8f0" }}>
+              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "#0a1628" }}>
                 What Our Customers Say
               </h2>
             </div>
@@ -355,17 +372,21 @@ export default function Home() {
               <FadeIn key={i} delay={i * 0.1}>
                 <div
                   className="p-8 rounded-2xl h-full"
-                  style={{ background: "rgba(10,22,40,0.5)", border: "1px solid rgba(30,111,191,0.15)" }}
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: CARD_SHADOW,
+                  }}
                 >
                   <div className="flex gap-0.5 mb-4">
                     {Array.from({ length: rating }).map((_, j) => (
                       <span key={j} style={{ color: "#f59e0b" }}>★</span>
                     ))}
                   </div>
-                  <p className="text-base leading-relaxed mb-6 italic" style={{ color: "#cbd5e1" }}>
+                  <p className="text-base leading-relaxed mb-6 italic" style={{ color: "#334155" }}>
                     &ldquo;{quote}&rdquo;
                   </p>
-                  <p className="text-sm font-medium" style={{ color: "#94a3b8" }}>
+                  <p className="text-sm font-medium" style={{ color: "#475569" }}>
                     — {name}
                   </p>
                 </div>
@@ -382,7 +403,7 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
               Coverage Area
             </p>
-            <h2 className="text-2xl font-bold mb-8" style={{ color: "#e2e8f0" }}>
+            <h2 className="text-2xl font-bold mb-8" style={{ color: "#0a1628" }}>
               Proudly Serving Greater Hartford
             </h2>
             <div className="flex flex-wrap justify-center gap-3">
@@ -390,7 +411,11 @@ export default function Home() {
                 <span
                   key={town}
                   className="px-4 py-2 rounded-full text-sm"
-                  style={{ background: "rgba(30,111,191,0.15)", color: "#94a3b8" }}
+                  style={{
+                    background: "#f1f5f9",
+                    color: "#0a1628",
+                    border: "1px solid #e2e8f0",
+                  }}
                 >
                   {town}
                 </span>
@@ -400,13 +425,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA — kept as dark feature block */}
       <section className="py-24 px-6">
         <FadeIn>
           <div
             className="max-w-4xl mx-auto rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, #1e6fbf 0%, #112240 100%)",
+              background: "linear-gradient(135deg, #1e6fbf 0%, #0a1628 100%)",
               border: "1px solid rgba(30,111,191,0.3)",
             }}
           >

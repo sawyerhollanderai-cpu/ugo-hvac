@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 const BASE = "https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10";
+const CARD_SHADOW = "0 4px 24px rgba(15,23,42,0.06)";
 
 const services = [
   {
@@ -145,13 +146,12 @@ const services = [
   },
 ];
 
-// 5 guide entry points — anchored to relevant services
 const guides = [
-  { label: "Select a New System", href: "#heating", description: "Compare options and pick the right fit." },
-  { label: "Repair or Replace?", href: "#cooling", description: "Get an honest answer about your current system." },
-  { label: "Energy Bill Concerns", href: "#duct-sealing", description: "Find and fix what's costing you money." },
-  { label: "Healthier Home", href: "#air-quality", description: "Cleaner, fresher air for your family." },
-  { label: "Ready for Maintenance", href: "#service-agreement", description: "Two tune-ups, priority service, more." },
+  { label: "Select a New System", href: "#heating" },
+  { label: "Repair or Replace?", href: "#cooling" },
+  { label: "Energy Bill Concerns", href: "#duct-sealing" },
+  { label: "Healthier Home", href: "#air-quality" },
+  { label: "Ready for Maintenance", href: "#service-agreement" },
 ];
 
 export default function ServicesPage() {
@@ -160,13 +160,13 @@ export default function ServicesPage() {
       {/* Page hero */}
       <section
         className="pt-36 pb-16 px-6 relative overflow-hidden"
-        style={{ background: "linear-gradient(to bottom, #112240 0%, #0a1628 100%)" }}
+        style={{ background: "linear-gradient(to bottom, #f1f5f9 0%, #ffffff 100%)" }}
       >
         <div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 30% 50%, #1e6fbf 0%, transparent 60%)",
+              "radial-gradient(circle at 30% 50%, rgba(30,111,191,0.15) 0%, transparent 60%)",
           }}
         />
         <div className="max-w-4xl mx-auto relative">
@@ -174,10 +174,10 @@ export default function ServicesPage() {
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
               What We Offer
             </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ color: "#e2e8f0" }}>
+            <h1 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ color: "#0a1628" }}>
               HVAC Services Built for Connecticut
             </h1>
-            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "#94a3b8" }}>
+            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "#475569" }}>
               From first-time installs to emergency repairs, custom sheet-metal
               fabrication to indoor air quality — we handle every part of home
               comfort, plus plumbing when projects need it.
@@ -192,11 +192,15 @@ export default function ServicesPage() {
           <FadeIn>
             <div
               className="rounded-2xl p-6"
-              style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.2)" }}
+              style={{
+                background: "#ffffff",
+                border: "1px solid #e2e8f0",
+                boxShadow: CARD_SHADOW,
+              }}
             >
               <p
                 className="text-xs font-semibold uppercase tracking-widest mb-4 text-center"
-                style={{ color: "#94a3b8" }}
+                style={{ color: "#475569" }}
               >
                 Quick Start — what brings you here?
               </p>
@@ -205,11 +209,11 @@ export default function ServicesPage() {
                   <a
                     key={label}
                     href={href}
-                    className="px-3 py-3 rounded-xl text-center text-xs font-semibold transition-all duration-200 hover:opacity-100"
+                    className="px-3 py-3 rounded-xl text-center text-xs font-semibold transition-all duration-200"
                     style={{
-                      background: "rgba(30,111,191,0.1)",
-                      color: "#e2e8f0",
-                      border: "1px solid rgba(30,111,191,0.15)",
+                      background: "#f1f5f9",
+                      color: "#0a1628",
+                      border: "1px solid #e2e8f0",
                     }}
                   >
                     {label}
@@ -233,13 +237,16 @@ export default function ServicesPage() {
               }`}
             >
               <FadeIn direction={i % 2 === 0 ? "left" : "right"}>
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+                <div
+                  className="relative rounded-2xl overflow-hidden aspect-[4/3]"
+                  style={{ boxShadow: CARD_SHADOW }}
+                >
                   <Image src={img} alt={title} fill className="object-cover" />
                   <div
                     className="absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(to top, rgba(10,22,40,0.6) 0%, transparent 50%)",
+                        "linear-gradient(to top, rgba(10,22,40,0.4) 0%, transparent 50%)",
                     }}
                   />
                 </div>
@@ -248,28 +255,28 @@ export default function ServicesPage() {
                 <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
                   {title}
                 </p>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: "#e2e8f0" }}>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: "#0a1628" }}>
                   {title} Services
                 </h2>
                 {stat && (
                   <div
                     className="mb-5 p-4 rounded-xl"
                     style={{
-                      background: "rgba(245,158,11,0.08)",
-                      border: "1px solid rgba(245,158,11,0.2)",
+                      background: "#fff7ed",
+                      border: "1px solid #fed7aa",
                     }}
                   >
-                    <p className="text-sm italic leading-relaxed" style={{ color: "#fbbf24" }}>
+                    <p className="text-sm italic leading-relaxed" style={{ color: "#9a3412" }}>
                       {stat}
                     </p>
                   </div>
                 )}
-                <p className="text-base leading-relaxed mb-6" style={{ color: "#94a3b8" }}>
+                <p className="text-base leading-relaxed mb-6" style={{ color: "#475569" }}>
                   {description}
                 </p>
                 <ul className="space-y-2 mb-8">
                   {features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm" style={{ color: "#cbd5e1" }}>
+                    <li key={f} className="flex items-center gap-3 text-sm" style={{ color: "#334155" }}>
                       <span
                         className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                         style={{ background: "#f59e0b" }}
@@ -291,24 +298,23 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Service Agreement callout */}
+      {/* Service Agreement — kept as feature block */}
       <section id="service-agreement" className="py-20 px-6">
         <FadeIn>
           <div
             className="max-w-5xl mx-auto rounded-3xl p-10 md:p-14 relative overflow-hidden"
             style={{
-              background:
-                "linear-gradient(135deg, rgba(30,111,191,0.15) 0%, rgba(10,22,40,0.6) 100%)",
+              background: "linear-gradient(135deg, #1e6fbf 0%, #0a1628 100%)",
               border: "1px solid rgba(30,111,191,0.3)",
             }}
           >
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
               Maintenance Plan
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight" style={{ color: "#e2e8f0" }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight" style={{ color: "#ffffff" }}>
               Service Agreement
             </h2>
-            <p className="text-base leading-relaxed mb-8 max-w-2xl" style={{ color: "#94a3b8" }}>
+            <p className="text-base leading-relaxed mb-8 max-w-2xl" style={{ color: "#bfdbfe" }}>
               Annual coverage that pays for itself. Two tune-ups, priority status
               when something breaks, and discounts on everything else.
             </p>
@@ -322,7 +328,7 @@ export default function ServicesPage() {
                 "30-day labor warranty",
                 "10% off new unit purchases",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm" style={{ color: "#e2e8f0" }}>
+                <li key={item} className="flex items-start gap-3 text-sm" style={{ color: "#ffffff" }}>
                   <span
                     className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5 text-xs font-bold"
                     style={{ background: "#f59e0b", color: "#0a1628" }}
@@ -345,13 +351,13 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6" style={{ background: "#112240" }}>
+      <section className="py-20 px-6" style={{ background: "#f8fafc" }}>
         <FadeIn>
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#e2e8f0" }}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#0a1628" }}>
               Not Sure What You Need?
             </h2>
-            <p className="text-base leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
+            <p className="text-base leading-relaxed mb-8" style={{ color: "#475569" }}>
               Give us a call and describe what&apos;s going on. We&apos;ll help
               you figure out whether you need a repair, a tune-up, or something
               new — no pressure, no upsell.

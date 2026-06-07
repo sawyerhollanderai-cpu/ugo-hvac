@@ -35,6 +35,13 @@ const initialForm: FormState = {
   otherProblems: "",
 };
 
+const PANEL_BG = "#ffffff";
+const PANEL_BORDER = "1px solid #e2e8f0";
+const PANEL_SHADOW = "0 4px 24px rgba(15,23,42,0.05)";
+
+const TEXT_DARK = "#0a1628";
+const TEXT_MUTED = "#475569";
+
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState<FormState>(initialForm);
@@ -47,13 +54,12 @@ export default function ContactForm() {
   const inputClass =
     "w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 focus:ring-2 focus:ring-blue-500";
   const inputStyle: React.CSSProperties = {
-    background: "#0a1628",
-    border: "1px solid rgba(30,111,191,0.2)",
-    color: "#e2e8f0",
+    background: "#f8fafc",
+    border: "1px solid #e2e8f0",
+    color: TEXT_DARK,
   };
-  const labelClass =
-    "block text-xs font-semibold uppercase tracking-wide mb-2";
-  const labelStyle: React.CSSProperties = { color: "#94a3b8" };
+  const labelClass = "block text-xs font-semibold uppercase tracking-wide mb-2";
+  const labelStyle: React.CSSProperties = { color: TEXT_MUTED };
 
   if (sent) {
     return (
@@ -62,18 +68,18 @@ export default function ContactForm() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
         className="p-12 rounded-2xl text-center"
-        style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+        style={{ background: PANEL_BG, border: PANEL_BORDER, boxShadow: PANEL_SHADOW }}
       >
         <div
           className="w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-5"
-          style={{ background: "rgba(245,158,11,0.15)", color: "#f59e0b" }}
+          style={{ background: "#fff7ed", color: "#f59e0b" }}
         >
           ✓
         </div>
-        <h2 className="text-xl font-bold mb-3" style={{ color: "#e2e8f0" }}>
+        <h2 className="text-xl font-bold mb-3" style={{ color: TEXT_DARK }}>
           Message Received
         </h2>
-        <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+        <p className="text-sm leading-relaxed" style={{ color: TEXT_MUTED }}>
           Thanks for reaching out. We&apos;ll be in touch shortly. For urgent
           issues, call us at{" "}
           <a href="tel:8602961281" className="font-semibold" style={{ color: "#f59e0b" }}>
@@ -89,14 +95,15 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       className="p-8 rounded-2xl space-y-6"
-      style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+      style={{ background: PANEL_BG, border: PANEL_BORDER, boxShadow: PANEL_SHADOW }}
     >
       <div>
-        <h2 className="text-lg font-semibold" style={{ color: "#e2e8f0" }}>
+        <h2 className="text-lg font-semibold" style={{ color: TEXT_DARK }}>
           Service Request
         </h2>
-        <p className="text-xs mt-1" style={{ color: "#94a3b8" }}>
-          For urgent repairs, please call <span style={{ color: "#f59e0b" }}>860-296-1281</span>.
+        <p className="text-xs mt-1" style={{ color: TEXT_MUTED }}>
+          For urgent repairs, please call{" "}
+          <span style={{ color: "#f59e0b" }}>860-296-1281</span>.
         </p>
       </div>
 
@@ -154,7 +161,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* Best time to contact */}
+      {/* Best time */}
       <div>
         <label className={labelClass} style={labelStyle}>When can we contact you?</label>
         <div className="flex flex-wrap gap-2">
@@ -165,13 +172,12 @@ export default function ContactForm() {
               onClick={() => setForm({ ...form, bestTime: opt })}
               className="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-150"
               style={{
-                background:
-                  form.bestTime === opt ? "#f59e0b" : "rgba(30,111,191,0.1)",
-                color: form.bestTime === opt ? "#0a1628" : "#cbd5e1",
+                background: form.bestTime === opt ? "#f59e0b" : "#f1f5f9",
+                color: form.bestTime === opt ? "#0a1628" : "#475569",
                 border:
                   form.bestTime === opt
                     ? "1px solid #f59e0b"
-                    : "1px solid rgba(30,111,191,0.2)",
+                    : "1px solid #e2e8f0",
               }}
             >
               {opt}
@@ -231,12 +237,12 @@ export default function ContactForm() {
               className="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-150"
               style={{
                 background:
-                  form.existingCustomer === opt ? "#1e6fbf" : "rgba(30,111,191,0.1)",
-                color: form.existingCustomer === opt ? "#ffffff" : "#cbd5e1",
+                  form.existingCustomer === opt ? "#1e6fbf" : "#f1f5f9",
+                color: form.existingCustomer === opt ? "#ffffff" : "#475569",
                 border:
                   form.existingCustomer === opt
                     ? "1px solid #1e6fbf"
-                    : "1px solid rgba(30,111,191,0.2)",
+                    : "1px solid #e2e8f0",
               }}
             >
               {opt}
@@ -252,10 +258,10 @@ export default function ContactForm() {
           <label
             className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer flex-1"
             style={{
-              background: form.heatProblem ? "rgba(245,158,11,0.1)" : "rgba(30,111,191,0.05)",
+              background: form.heatProblem ? "#fff7ed" : "#f8fafc",
               border: form.heatProblem
-                ? "1px solid rgba(245,158,11,0.4)"
-                : "1px solid rgba(30,111,191,0.2)",
+                ? "1px solid #fdba74"
+                : "1px solid #e2e8f0",
             }}
           >
             <input
@@ -264,17 +270,17 @@ export default function ContactForm() {
               onChange={(e) => setForm({ ...form, heatProblem: e.target.checked })}
               className="w-4 h-4 accent-amber-500"
             />
-            <span className="text-sm" style={{ color: "#e2e8f0" }}>
+            <span className="text-sm" style={{ color: TEXT_DARK }}>
               Problem with heat
             </span>
           </label>
           <label
             className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer flex-1"
             style={{
-              background: form.coolingProblem ? "rgba(245,158,11,0.1)" : "rgba(30,111,191,0.05)",
+              background: form.coolingProblem ? "#fff7ed" : "#f8fafc",
               border: form.coolingProblem
-                ? "1px solid rgba(245,158,11,0.4)"
-                : "1px solid rgba(30,111,191,0.2)",
+                ? "1px solid #fdba74"
+                : "1px solid #e2e8f0",
             }}
           >
             <input
@@ -283,7 +289,7 @@ export default function ContactForm() {
               onChange={(e) => setForm({ ...form, coolingProblem: e.target.checked })}
               className="w-4 h-4 accent-amber-500"
             />
-            <span className="text-sm" style={{ color: "#e2e8f0" }}>
+            <span className="text-sm" style={{ color: TEXT_DARK }}>
               Problem with cooling
             </span>
           </label>

@@ -101,7 +101,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.7 }}
         >
           <div
-            className="flex items-center gap-4 px-6 py-3 rounded-xl"
+            className="flex items-center px-5 py-3 rounded-xl"
             style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(8px)" }}
           >
             <Image
@@ -111,9 +111,6 @@ export default function HeroSection() {
               height={40}
               className="h-8 w-auto"
             />
-            <span className="text-xs" style={{ color: "#94a3b8" }}>
-              License #306632
-            </span>
           </div>
         </motion.div>
       </div>
