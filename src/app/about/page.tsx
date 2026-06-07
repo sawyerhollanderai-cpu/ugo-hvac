@@ -6,7 +6,7 @@ import FadeIn from "@/components/FadeIn";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Ugo DiGrazia Heating & Cooling — Hartford's trusted HVAC company since the 1960s. Carrier Factory-Authorized Dealer. License #306632.",
+    "Ugo DiGrazia Heating & Cooling — Hartford's trusted HVAC company since 1972. Carrier Factory-Authorized Dealer. Founded by Sicilian immigrant Ugo DiGrazia. License #306632.",
 };
 
 const BASE = "https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10";
@@ -55,20 +55,20 @@ export default function AboutPage() {
               Our Story
             </p>
             <h1 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ color: "#e2e8f0" }}>
-              Six Decades of Doing It Right
+              From Sicily to Hartford — and Six Decades of Carrier
             </h1>
             <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "#94a3b8" }}>
-              Ugo DiGrazia Heating & Cooling has been part of the Hartford
-              community since the 1960s. We&apos;ve watched the industry change
-              dramatically — and so have our tools and technology — but our
-              approach has stayed the same: show up, do the work right, and
-              treat customers like neighbors.
+              Ugo DiGrazia Heating & Cooling is a family business with deep
+              Hartford roots. We&apos;ve watched the industry change dramatically
+              over 60+ years — and so have our tools and technology — but our
+              approach has stayed the same: show up, do the work right, treat
+              customers like neighbors.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* Story + badge */}
+      {/* Founder story */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <FadeIn direction="left">
@@ -85,33 +85,70 @@ export default function AboutPage() {
             </div>
           </FadeIn>
           <FadeIn direction="right">
+            <p
+              className="text-xs font-semibold uppercase tracking-widest mb-3"
+              style={{ color: "#f59e0b" }}
+            >
+              Founded 1972
+            </p>
             <h2 className="text-2xl md:text-3xl font-bold mb-5 leading-tight" style={{ color: "#e2e8f0" }}>
-              A Family Business with a Long Memory
+              A Sicilian Immigrant&apos;s Hartford Business
             </h2>
             <p className="text-base leading-relaxed mb-4" style={{ color: "#94a3b8" }}>
-              Ugo DiGrazia started with a simple idea: Hartford families deserve
-              reliable heating and cooling from people they can trust. That idea
-              has guided everything we&apos;ve done for more than 60 years — from
-              the equipment we recommend to the technicians we hire.
+              Ugo DiGrazia emigrated from Sicily to Hartford in 1961. Eleven
+              years later, in 1972, he founded the company that still bears his
+              name. Through the energy crises, recessions, and every generation
+              of HVAC technology since, his sales have consistently ranked in
+              the top 20% of independent Carrier dealers in Connecticut.
             </p>
             <p className="text-base leading-relaxed mb-4" style={{ color: "#94a3b8" }}>
-              We&apos;re a Carrier Factory-Authorized Dealer, which means our
-              technicians are trained to Carrier&apos;s exacting standards, and
-              we have access to the full product line, warranty support, and
-              technical resources that come with that certification.
+              Today his son, Ugo Jr., carries on the trade. A college graduate
+              with business-school training and a decade of finance experience,
+              he brings a second generation of expertise to the family
+              business — combining the old-school work ethic that built the
+              company with the systems and tools that keep it running for
+              decades to come.
             </p>
-            <p className="text-base leading-relaxed" style={{ color: "#94a3b8" }}>
-              We serve Berlin, Bloomfield, Cromwell, East Hartford, Glastonbury,
-              Hartford, Kensington, Manchester, Newington, Rocky Hill, West
-              Hartford, and Wethersfield — the same communities we&apos;ve
-              called home for generations.
+            <p
+              className="text-xs italic mt-6"
+              style={{ color: "#64748b" }}
+            >
+              Featured in <em>The Hartford Courant</em> — &ldquo;Carrying
+              Carrier for Six Decades on Two Continents&rdquo; by Anne M.
+              Hamilton, February 8, 2012.
             </p>
           </FadeIn>
         </div>
       </section>
 
+      {/* Featured testimonial pull-quote */}
+      <section className="py-16 px-6" style={{ background: "#112240" }}>
+        <FadeIn>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "#f59e0b" }}>
+              In their words
+            </p>
+            <p
+              className="text-2xl md:text-3xl leading-relaxed mb-6 font-light italic"
+              style={{ color: "#e2e8f0" }}
+            >
+              &ldquo;Both father and son came to my rescue. Consummate
+              professionals and advisors — always available, honest, and
+              extremely knowledgeable.&rdquo;
+            </p>
+            <p className="text-sm" style={{ color: "#94a3b8" }}>
+              — Carol Sexton, West Hartford
+              <br />
+              <span className="text-xs" style={{ color: "#64748b" }}>
+                after the DiGrazias responded to a gas leak at her home
+              </span>
+            </p>
+          </div>
+        </FadeIn>
+      </section>
+
       {/* Carrier section */}
-      <section className="py-20 px-6" style={{ background: "#112240" }}>
+      <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <FadeIn direction="left">
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
@@ -128,8 +165,8 @@ export default function AboutPage() {
             </p>
             <p className="text-base leading-relaxed" style={{ color: "#94a3b8" }}>
               It means when you buy a Carrier system through us, you get the
-              full manufacturer warranty — and technicians who know the equipment
-              inside and out.
+              full manufacturer warranty — and technicians who know the
+              equipment inside and out. License #306632.
             </p>
           </FadeIn>
           <FadeIn direction="right">
@@ -150,7 +187,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-24 px-6">
+      <section className="py-24 px-6" style={{ background: "#112240" }}>
         <div className="max-w-6xl mx-auto">
           <FadeIn>
             <div className="mb-14 max-w-xl">
@@ -166,8 +203,8 @@ export default function AboutPage() {
             {values.map(({ title, description }, i) => (
               <FadeIn key={title} delay={i * 0.1}>
                 <div
-                  className="p-8 rounded-2xl"
-                  style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+                  className="p-8 rounded-2xl h-full"
+                  style={{ background: "rgba(10,22,40,0.5)", border: "1px solid rgba(30,111,191,0.15)" }}
                 >
                   <div
                     className="w-2 h-2 rounded-full mb-4"
@@ -187,7 +224,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6" style={{ background: "#112240" }}>
+      <section className="py-20 px-6">
         <FadeIn>
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#e2e8f0" }}>

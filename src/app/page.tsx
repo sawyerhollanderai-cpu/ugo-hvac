@@ -16,7 +16,7 @@ const services = [
   {
     title: "Air Conditioning",
     description:
-      "Central AC, ductless splits, and packaged systems. Energy-efficient cooling solutions sized and installed for your home.",
+      "Carrier central AC, ductless splits, and packaged systems. Energy-efficient cooling sized and installed for your home.",
     img: `${BASE}/Air-Conditioning.jpg`,
     href: "/services#cooling",
   },
@@ -35,11 +35,11 @@ const services = [
     href: "/services#duct-free",
   },
   {
-    title: "Packaged Units",
+    title: "Sheet Metal Fabrication",
     description:
-      "All-in-one rooftop and packaged HVAC systems built for reliability and easy maintenance.",
-    img: `${BASE}/Packaged-Units.jpg`,
-    href: "/services#packaged",
+      "In-house custom duct, lab hoods, and specialty exhaust in welded black iron, aluminum, or stainless steel.",
+    img: `${BASE}/carrier-1.jpg`,
+    href: "/services#sheet-metal",
   },
   {
     title: "Water Heaters",
@@ -56,16 +56,42 @@ const stats = [
   { value: "A+", label: "Carrier Authorized" },
 ];
 
+const guides = [
+  { label: "Select a New System", href: "/services#heating" },
+  { label: "Repair or Replace?", href: "/services#cooling" },
+  { label: "Energy Bill Concerns", href: "/services#duct-sealing" },
+  { label: "Healthier Home", href: "/services#air-quality" },
+  { label: "Ready for Maintenance", href: "/services#service-agreement" },
+];
+
+const offers = [
+  {
+    img: `${BASE}/brand_173_2.jpg`,
+    title: "Cool Cash Rebate",
+    description: "Up to $1,650 cash back on qualifying Carrier heating & cooling systems.",
+  },
+  {
+    img: `${BASE}/brand_173_3.jpg`,
+    title: "Carrier Infinity® Air Purifier",
+    description: "The most effective way to enhance your home's air quality.",
+  },
+  {
+    img: `${BASE}/brand_173_4.jpg`,
+    title: "Carrier Greenspeed® Intelligence",
+    description: "A breakthrough in high-efficiency home comfort solutions.",
+  },
+];
+
 const testimonials = [
   {
     quote:
-      "Prompt, professional, and genuinely honest. I've used Ugo DiGrazia twice now and I won't go anywhere else.",
-    name: "Google Reviewer",
+      "Consummate professionals & advisors — always available, honest, and extremely knowledgeable.",
+    name: "Hartford Review",
     rating: 5,
   },
   {
     quote:
-      "Professionalism, quality, and responsiveness all in one. They showed up on time and got the job done right the first time.",
+      "Professionalism, quality, and responsiveness all in one. They showed up on time and got the job done right.",
     name: "Google Reviewer",
     rating: 5,
   },
@@ -100,8 +126,49 @@ export default function Home() {
         </div>
       </section>
 
+      {/* How can we help? — guide strip */}
+      <section className="pt-20 pb-4 px-6">
+        <div className="max-w-6xl mx-auto">
+          <FadeIn>
+            <div className="text-center mb-10">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
+                How Can We Help?
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#e2e8f0" }}>
+                Where do you want to start?
+              </h2>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {guides.map(({ label, href }, i) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className="group relative px-4 py-5 rounded-2xl text-center transition-all duration-200"
+                  style={{
+                    background: "#112240",
+                    border: "1px solid rgba(30,111,191,0.2)",
+                  }}
+                >
+                  <div
+                    className="w-8 h-8 rounded-full mx-auto mb-3 flex items-center justify-center text-sm font-bold transition-transform duration-200 group-hover:scale-110"
+                    style={{ background: "rgba(245,158,11,0.15)", color: "#f59e0b" }}
+                  >
+                    {i + 1}
+                  </div>
+                  <p className="text-xs font-semibold leading-tight" style={{ color: "#e2e8f0" }}>
+                    {label}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Services */}
-      <section className="py-24 px-6">
+      <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <FadeIn>
             <div className="mb-14 max-w-xl">
@@ -119,7 +186,7 @@ export default function Home() {
               <FadeIn key={title} delay={i * 0.08}>
                 <Link
                   href={href}
-                  className="group block rounded-2xl overflow-hidden relative"
+                  className="group block rounded-2xl overflow-hidden relative h-full"
                   style={{ background: "#112240" }}
                 >
                   <div className="relative h-52 overflow-hidden">
@@ -155,14 +222,27 @@ export default function Home() {
               </FadeIn>
             ))}
           </div>
+
+          <FadeIn delay={0.2}>
+            <div className="mt-10 text-center">
+              <Link
+                href="/services"
+                className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200"
+                style={{
+                  background: "rgba(30,111,191,0.15)",
+                  color: "#e2e8f0",
+                  border: "1px solid rgba(30,111,191,0.3)",
+                }}
+              >
+                See All Services &rarr;
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* About strip */}
-      <section
-        className="py-24 px-6"
-        style={{ background: "#112240" }}
-      >
+      <section className="py-24 px-6" style={{ background: "#112240" }}>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <FadeIn direction="left">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
@@ -183,11 +263,10 @@ export default function Home() {
               Trusted by Hartford Families for Over 60 Years
             </h2>
             <p className="text-base leading-relaxed mb-6" style={{ color: "#94a3b8" }}>
-              Ugo DiGrazia Heating & Cooling has been keeping Greater Hartford
-              comfortable through every season since the 1960s. As a Carrier
-              Factory-Authorized Dealer, we combine decades of hands-on
-              experience with industry-leading equipment and a commitment to
-              doing the job right.
+              Founder Ugo DiGrazia emigrated from Sicily to Hartford in 1961
+              and started the business in 1972. Today his son Ugo Jr. carries
+              on the family trade — and the company still ranks in the top
+              20% of independent Carrier dealers in Connecticut.
             </p>
             <p className="text-base leading-relaxed mb-8" style={{ color: "#94a3b8" }}>
               We&apos;re not a call center — we&apos;re your neighbors. When you
@@ -199,14 +278,67 @@ export default function Home() {
               className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200"
               style={{ background: "#1e6fbf", color: "#ffffff" }}
             >
-              About Us
+              Our Story
             </Link>
           </FadeIn>
         </div>
       </section>
 
+      {/* Current Offers */}
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <FadeIn>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
+                  Current Offers
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#e2e8f0" }}>
+                  Carrier Promotions Available Now
+                </h2>
+              </div>
+              <Link
+                href="/financing"
+                className="text-sm font-semibold whitespace-nowrap"
+                style={{ color: "#f59e0b" }}
+              >
+                View financing options &rarr;
+              </Link>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {offers.map(({ img, title, description }, i) => (
+              <FadeIn key={title} delay={i * 0.1}>
+                <Link
+                  href="/financing"
+                  className="group block rounded-2xl overflow-hidden h-full"
+                  style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+                >
+                  <div className="relative h-44 overflow-hidden flex items-center justify-center" style={{ background: "#ffffff" }}>
+                    <Image
+                      src={img}
+                      alt={title}
+                      fill
+                      className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-base font-semibold mb-2" style={{ color: "#e2e8f0" }}>
+                      {title}
+                    </h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+                      {description}
+                    </p>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
-      <section className="py-24 px-6">
+      <section className="py-24 px-6" style={{ background: "#112240" }}>
         <div className="max-w-4xl mx-auto">
           <FadeIn>
             <div className="text-center mb-14">
@@ -222,12 +354,12 @@ export default function Home() {
             {testimonials.map(({ quote, name, rating }, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
-                  className="p-8 rounded-2xl"
-                  style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+                  className="p-8 rounded-2xl h-full"
+                  style={{ background: "rgba(10,22,40,0.5)", border: "1px solid rgba(30,111,191,0.15)" }}
                 >
                   <div className="flex gap-0.5 mb-4">
                     {Array.from({ length: rating }).map((_, j) => (
-                      <span key={j} style={{ color: "#f59e0b" }}>&#9733;</span>
+                      <span key={j} style={{ color: "#f59e0b" }}>★</span>
                     ))}
                   </div>
                   <p className="text-base leading-relaxed mb-6 italic" style={{ color: "#cbd5e1" }}>
@@ -244,7 +376,7 @@ export default function Home() {
       </section>
 
       {/* Service area */}
-      <section className="py-16 px-6" style={{ background: "#112240" }}>
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <FadeIn>
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>

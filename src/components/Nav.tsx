@@ -9,7 +9,9 @@ import Image from "next/image";
 const links = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/financing", label: "Financing" },
   { href: "/about", label: "About" },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -53,7 +55,7 @@ export default function Nav() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-6">
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link
@@ -71,7 +73,7 @@ export default function Nav() {
 
         <a
           href="tel:8602961281"
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200"
+          className="hidden lg:inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200"
           style={{ background: "#f59e0b", color: "#0a1628" }}
         >
           860-296-1281
@@ -79,7 +81,7 @@ export default function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded-lg"
+          className="lg:hidden p-2 rounded-lg"
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
         >
@@ -111,7 +113,7 @@ export default function Nav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden"
+            className="lg:hidden overflow-hidden"
             style={{ background: "rgba(10,22,40,0.98)" }}
           >
             <ul className="flex flex-col px-6 py-4 gap-4">

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
+import MapEmbed from "@/components/MapEmbed";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Request HVAC service or get a free quote from Ugo DiGrazia Heating & Cooling. Call 860-296-1281 or fill out our service request form.",
+    "Request HVAC service or get a free quote from Ugo DiGrazia Heating & Cooling. Call 860-296-1281 or fill out our service request form. 436 Franklin Ave, Hartford, CT 06114.",
 };
 
 const contactInfo = [
@@ -17,6 +18,8 @@ const contactInfo = [
     href: "https://maps.google.com/?q=436+Franklin+Ave+Hartford+CT",
   },
 ];
+
+const paymentMethods = ["Cash", "Check", "All Major Credit Cards", "Financing*"];
 
 export default function ContactPage() {
   return (
@@ -133,6 +136,38 @@ export default function ContactPage() {
                 </a>
               </div>
             </FadeIn>
+
+            <FadeIn direction="left" delay={0.15}>
+              <div
+                className="p-6 rounded-2xl"
+                style={{ background: "#112240", border: "1px solid rgba(30,111,191,0.15)" }}
+              >
+                <p
+                  className="text-xs font-semibold uppercase tracking-wide mb-3"
+                  style={{ color: "#f59e0b" }}
+                >
+                  Payment Methods Accepted
+                </p>
+                <ul className="space-y-2 mb-3">
+                  {paymentMethods.map((method) => (
+                    <li
+                      key={method}
+                      className="flex items-center gap-2 text-sm"
+                      style={{ color: "#cbd5e1" }}
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full"
+                        style={{ background: "#f59e0b" }}
+                      />
+                      {method}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs" style={{ color: "#64748b" }}>
+                  *With approved credit through our partner Hearth.
+                </p>
+              </div>
+            </FadeIn>
           </div>
 
           {/* Form */}
@@ -141,6 +176,26 @@ export default function ContactPage() {
               <ContactForm />
             </FadeIn>
           </div>
+        </div>
+      </section>
+
+      {/* Map */}
+      <section className="pb-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <FadeIn>
+            <div className="mb-6">
+              <p
+                className="text-xs font-semibold uppercase tracking-widest mb-2"
+                style={{ color: "#f59e0b" }}
+              >
+                Visit Us
+              </p>
+              <h2 className="text-2xl md:text-3xl font-bold" style={{ color: "#e2e8f0" }}>
+                436 Franklin Ave, Hartford, CT
+              </h2>
+            </div>
+            <MapEmbed height={460} />
+          </FadeIn>
         </div>
       </section>
     </>
