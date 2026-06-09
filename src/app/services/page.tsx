@@ -1,377 +1,236 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
+import Reveal from "@/components/Reveal";
+import CTABand from "@/components/CTABand";
+import {
+  ServiceGlyph,
+  ArrowIcon,
+  CheckIcon,
+  BoltIcon,
+} from "@/components/icons";
+import { services, agreementPerks, type Accent } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Full-service HVAC installation, repair, and maintenance in Greater Hartford, CT. Heating, cooling, indoor air quality, plumbing, sheet metal fabrication, and more.",
+    "Full-service HVAC in Greater Hartford, CT — heating, cooling, indoor air quality, duct-free systems, water heaters, in-house sheet metal fabrication, duct sealing, and plumbing.",
 };
 
-const BASE = "https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10";
-const CARD_SHADOW = "0 4px 24px rgba(15,23,42,0.06)";
+const plateBg: Record<Accent, string> = {
+  ember:
+    "bg-[radial-gradient(125%_125%_at_25%_-5%,#52200a_0%,#241108_55%,#151c25_100%)]",
+  glacier:
+    "bg-[radial-gradient(125%_125%_at_25%_-5%,#12365c_0%,#101d2c_55%,#151c25_100%)]",
+  ink: "bg-[radial-gradient(125%_125%_at_25%_-5%,#2c3a4a_0%,#1c2632_55%,#151c25_100%)]",
+};
 
-const services = [
-  {
-    id: "heating",
-    title: "Heating",
-    img: `${BASE}/Heating.jpg`,
-    description:
-      "Connecticut winters are no joke, and a reliable heating system isn't optional — it's essential. We install, service, and repair Carrier gas furnaces, hot water boilers, and heat pump systems. Every installation is sized for your home and tuned for maximum efficiency.",
-    features: [
-      "Carrier gas furnaces & boilers",
-      "Heat pump systems (13–21 SEER)",
-      "2-stage compressors & variable-speed fans",
-      "Heating tune-ups & maintenance",
-      "Emergency heating repair",
-      "System replacement & upgrade",
-    ],
-  },
-  {
-    id: "cooling",
-    title: "Air Conditioning",
-    img: `${BASE}/Air-Conditioning.jpg`,
-    description:
-      "Stay cool all summer with a system that's sized right and installed properly. Carrier systems range from 13 SEER to 21 SEER, with sound-reduction Silencer System II™ design and WeatherArmor Ultra™ protection built in.",
-    features: [
-      "Carrier central AC installation",
-      "Silencer System II™ sound reduction",
-      "WeatherArmor Ultra™ durability",
-      "Seasonal tune-ups",
-      "Emergency AC repair",
-      "Air handlers & condenser replacement",
-    ],
-  },
-  {
-    id: "air-quality",
-    title: "Indoor Air Quality",
-    img: `${BASE}/Indoor-Air-Quality-image.jpg`,
-    stat: "The air inside your home can be 2–5× more polluted than the air outside.",
-    description:
-      "Allergens, bacteria, humidity imbalance, and stale air all affect how your family feels day to day. We integrate a full range of air-quality products directly with your existing HVAC system.",
-    features: [
-      "Whole-home air cleaners",
-      "UV germicidal lights",
-      "Whole-home humidifiers",
-      "Energy recovery ventilators",
-      "Carbon monoxide detectors",
-      "Programmable thermostats & zoning",
-    ],
-  },
-  {
-    id: "duct-free",
-    title: "Duct-Free Systems",
-    img: `${BASE}/Duct-Free-System-Heat-Pumps.jpg`,
-    description:
-      "Mini-split heat pumps are the most flexible, efficient way to heat and cool spaces that don't have ductwork — sunrooms, finished basements, additions, garages. Also ideal for whole-home zoning when you want independent temperature control in different rooms.",
-    features: [
-      "Single & multi-zone mini-splits",
-      "Heat pump & cooling-only options",
-      "No ductwork required",
-      "Year-round heating & cooling",
-      "Ideal for additions & retrofits",
-    ],
-  },
-  {
-    id: "packaged",
-    title: "Packaged Units",
-    img: `${BASE}/Packaged-Units.jpg`,
-    description:
-      "Packaged HVAC systems combine heating and cooling in a single outdoor unit, keeping mechanical equipment out of your living space. Common in Connecticut homes without a basement or utility closet for a traditional split system.",
-    features: [
-      "Gas/electric packaged systems",
-      "Rooftop & ground-mount units",
-      "All-in-one heating & cooling",
-      "Installation & replacement",
-      "Preventive maintenance plans",
-    ],
-  },
-  {
-    id: "water-heaters",
-    title: "Water Heaters",
-    img: `${BASE}/Water-Heaters.jpg`,
-    description:
-      "Don't wait until your water heater fails. We install tank and tankless heaters and help you choose the right size and fuel type for your household. Tankless units deliver hot water on demand and last significantly longer than tank heaters.",
-    features: [
-      "Tank & tankless installation",
-      "Gas & electric options",
-      "Emergency replacement",
-      "Efficiency upgrades",
-      "Annual inspections",
-    ],
-  },
-  {
-    id: "sheet-metal",
-    title: "Sheet Metal Fabrication",
-    img: `${BASE}/carrier-1.jpg`,
-    description:
-      "What sets us apart: we fabricate sheet metal in-house. That means custom duct systems, lab hoods, and specialty exhaust built precisely for your space — in welded black iron, aluminum, or stainless steel — without waiting on third-party shops.",
-    features: [
-      "Custom duct systems",
-      "Lab hoods & exhaust systems",
-      "Welded black iron fabrication",
-      "Aluminum & stainless steel work",
-      "Specialty one-off pieces",
-    ],
-  },
-  {
-    id: "duct-sealing",
-    title: "Duct Sealing",
-    img: `${BASE}/Heating.jpg`,
-    stat: "Approximately 20% of air is lost through leaks and poorly connected ducts.",
-    description:
-      "Leaky ductwork is one of the biggest hidden causes of high utility bills and uneven temperatures. We test, seal, and rebalance duct systems so the air you pay to heat or cool actually reaches the rooms it's supposed to.",
-    features: [
-      "Duct leak testing",
-      "Sealing & rebalancing",
-      "Lower utility bills",
-      "Better whole-home comfort",
-      "Existing system optimization",
-    ],
-  },
-  {
-    id: "plumbing",
-    title: "Plumbing",
-    img: `${BASE}/Water-Heaters.jpg`,
-    description:
-      "We handle plumbing installation and repair alongside our HVAC work. One call, one trusted team — useful when a project touches both systems (water heater swaps, gas line work, condensate drains).",
-    features: [
-      "Installation & repair",
-      "On-site assessment",
-      "Gas line work",
-      "Drain & condensate work",
-      "Coordinated with HVAC projects",
-    ],
-  },
-];
+const plateAccent: Record<Accent, string> = {
+  ember: "text-amber",
+  glacier: "text-[#7db0e6]",
+  ink: "text-paper/80",
+};
 
-const guides = [
-  { label: "Select a New System", href: "#heating" },
-  { label: "Repair or Replace?", href: "#cooling" },
-  { label: "Energy Bill Concerns", href: "#duct-sealing" },
-  { label: "Healthier Home", href: "#air-quality" },
-  { label: "Ready for Maintenance", href: "#service-agreement" },
-];
+const statTone: Record<Accent, string> = {
+  ember: "border-ember/25 bg-ember-soft text-ember-deep",
+  glacier: "border-glacier/25 bg-glacier-soft text-glacier-deep",
+  ink: "border-line bg-cream text-ink-2",
+};
 
 export default function ServicesPage() {
   return (
     <>
-      {/* Page hero */}
-      <section
-        className="pt-36 pb-16 px-6 relative overflow-hidden"
-        style={{ background: "linear-gradient(to bottom, #f1f5f9 0%, #ffffff 100%)" }}
-      >
+      {/* Hero */}
+      <section className="relative overflow-hidden">
         <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 30% 50%, rgba(30,111,191,0.15) 0%, transparent 60%)",
-          }}
+          aria-hidden
+          className="absolute -top-32 -right-40 h-[30rem] w-[30rem] rounded-full bg-glacier/10 blur-[120px]"
         />
-        <div className="max-w-4xl mx-auto relative">
-          <FadeIn>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-              What We Offer
-            </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{ color: "#0a1628" }}>
-              HVAC Services Built for Connecticut
+        <div
+          aria-hidden
+          className="absolute -bottom-20 -left-32 h-[26rem] w-[26rem] rounded-full bg-ember/10 blur-[120px]"
+        />
+        <div className="relative mx-auto max-w-6xl px-6 pt-40 pb-16 md:pt-48">
+          <Reveal>
+            <p className="eyebrow text-body">/ Services — what we offer</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h1 className="display mt-6 max-w-3xl text-[clamp(2.8rem,6.5vw,5rem)] text-ink">
+              Nine trades.{" "}
+              <em className="wonk text-ember italic">One phone number.</em>
             </h1>
-            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "#475569" }}>
-              From first-time installs to emergency repairs, custom sheet-metal
-              fabrication to indoor air quality — we handle every part of home
-              comfort, plus plumbing when projects need it.
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-body">
+              From first-time installs to emergency repairs, custom
+              sheet-metal fabrication to indoor air quality — we handle every
+              part of home comfort, plus plumbing when projects need it.
             </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Quick-start guides strip */}
-      <section className="px-6 -mt-8 mb-8 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <FadeIn>
-            <div
-              className="rounded-2xl p-6"
-              style={{
-                background: "#ffffff",
-                border: "1px solid #e2e8f0",
-                boxShadow: CARD_SHADOW,
-              }}
-            >
-              <p
-                className="text-xs font-semibold uppercase tracking-widest mb-4 text-center"
-                style={{ color: "#475569" }}
-              >
-                Quick Start — what brings you here?
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-                {guides.map(({ label, href }) => (
+          </Reveal>
+          <Reveal delay={0.24}>
+            <div className="mt-10 flex flex-wrap gap-2">
+              {[...services.map(({ id, title }) => ({ id, title })), { id: "service-agreement", title: "Service Agreement" }].map(
+                ({ id, title }) => (
                   <a
-                    key={label}
-                    href={href}
-                    className="px-3 py-3 rounded-xl text-center text-xs font-semibold transition-all duration-200"
-                    style={{
-                      background: "#f1f5f9",
-                      color: "#0a1628",
-                      border: "1px solid #e2e8f0",
-                    }}
+                    key={id}
+                    href={`#${id}`}
+                    className="rounded-full border border-line bg-[#fffdf8] px-4 py-2 font-mono text-[0.65rem] tracking-wider text-body uppercase transition-colors duration-200 hover:border-ember hover:text-ember"
                   >
-                    {label}
+                    {title}
                   </a>
-                ))}
-              </div>
+                )
+              )}
             </div>
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
 
       {/* Services */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto space-y-28">
-          {services.map(({ id, title, img, description, features, stat }, i) => (
-            <div
+      <section className="mx-auto max-w-6xl space-y-28 px-6 py-20 md:space-y-36 md:py-28">
+        {services.map(
+          ({ id, index, title, description, features, stat, accent, icon }, i) => (
+            <article
               key={id}
               id={id}
-              className={`grid grid-cols-1 md:grid-cols-2 gap-12 items-center ${
-                i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+              className={`grid scroll-mt-32 items-center gap-12 lg:grid-cols-2 lg:gap-20 ${
+                i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
-              <FadeIn direction={i % 2 === 0 ? "left" : "right"}>
+              {/* Icon plate */}
+              <Reveal>
                 <div
-                  className="relative rounded-2xl overflow-hidden aspect-[4/3]"
-                  style={{ boxShadow: CARD_SHADOW }}
+                  className={`relative aspect-[4/3] overflow-hidden rounded-[2rem] ${plateBg[accent]}`}
                 >
-                  <Image src={img} alt={title} fill className="object-cover" />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(10,22,40,0.4) 0%, transparent 50%)",
-                    }}
-                  />
+                  <div aria-hidden className="dot-grid absolute inset-0" />
+                  <span
+                    aria-hidden
+                    className="display absolute -top-8 -right-2 text-[11rem] leading-none text-paper/[0.06] italic"
+                  >
+                    {index}
+                  </span>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span
+                      className={`flex h-28 w-28 items-center justify-center rounded-full border border-paper/20 bg-paper/[0.06] backdrop-blur-sm ${plateAccent[accent]}`}
+                    >
+                      <ServiceGlyph
+                        name={icon}
+                        className="h-12 w-12"
+                        strokeWidth={1.4}
+                      />
+                    </span>
+                  </div>
+                  <p className="eyebrow absolute bottom-5 left-6 !text-[0.58rem] text-paper/45">
+                    Ugo DiGrazia · SVC {index}
+                  </p>
+                  <p className="eyebrow absolute right-6 bottom-5 !text-[0.58rem] text-paper/45">
+                    Est. 1972
+                  </p>
                 </div>
-              </FadeIn>
-              <FadeIn direction={i % 2 === 0 ? "right" : "left"}>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-                  {title}
+              </Reveal>
+
+              {/* Copy */}
+              <Reveal delay={0.1}>
+                <p className="eyebrow flex items-center gap-3 text-body">
+                  <span className="text-ember">/ {index}</span> {title}
                 </p>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: "#0a1628" }}>
-                  {title} Services
+                <h2 className="display mt-4 text-3xl text-ink md:text-[2.6rem] md:leading-[1.05]">
+                  {title}
                 </h2>
                 {stat && (
-                  <div
-                    className="mb-5 p-4 rounded-xl"
-                    style={{
-                      background: "#fff7ed",
-                      border: "1px solid #fed7aa",
-                    }}
+                  <p
+                    className={`mt-6 rounded-2xl border px-5 py-4 text-sm leading-relaxed italic ${statTone[accent]}`}
                   >
-                    <p className="text-sm italic leading-relaxed" style={{ color: "#9a3412" }}>
-                      {stat}
-                    </p>
-                  </div>
+                    {stat}
+                  </p>
                 )}
-                <p className="text-base leading-relaxed mb-6" style={{ color: "#475569" }}>
+                <p className="mt-6 text-base leading-relaxed text-body">
                   {description}
                 </p>
-                <ul className="space-y-2 mb-8">
+                <ul className="mt-7 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
                   {features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm" style={{ color: "#334155" }}>
-                      <span
-                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                        style={{ background: "#f59e0b" }}
+                    <li
+                      key={f}
+                      className="flex items-start gap-2.5 text-sm text-ink-2"
+                    >
+                      <CheckIcon
+                        className={`mt-0.5 h-4 w-4 shrink-0 ${
+                          accent === "glacier" ? "text-glacier" : "text-ember"
+                        }`}
+                        strokeWidth={2.2}
                       />
                       {f}
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200"
-                  style={{ background: "#1e6fbf", color: "#ffffff" }}
-                >
-                  Request Service
+                <Link href="/contact" className="btn btn-ink mt-9">
+                  Request {title.toLowerCase()} service
+                  <ArrowIcon className="h-4 w-4" />
                 </Link>
-              </FadeIn>
-            </div>
-          ))}
-        </div>
+              </Reveal>
+            </article>
+          )
+        )}
       </section>
 
-      {/* Service Agreement — kept as feature block */}
-      <section id="service-agreement" className="py-20 px-6">
-        <FadeIn>
-          <div
-            className="max-w-5xl mx-auto rounded-3xl p-10 md:p-14 relative overflow-hidden"
-            style={{
-              background: "linear-gradient(135deg, #1e6fbf 0%, #0a1628 100%)",
-              border: "1px solid rgba(30,111,191,0.3)",
-            }}
-          >
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-              Maintenance Plan
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight" style={{ color: "#ffffff" }}>
-              Service Agreement
-            </h2>
-            <p className="text-base leading-relaxed mb-8 max-w-2xl" style={{ color: "#bfdbfe" }}>
-              Annual coverage that pays for itself. Two tune-ups, priority status
-              when something breaks, and discounts on everything else.
-            </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
-              {[
-                "2 annual performance tune-ups (furnace + AC)",
-                "24-hour priority emergency service, 365 days/year",
-                "10% off replacement parts and repair labor",
-                "No trip charges",
-                "Energy-saving coil cleaning included",
-                "30-day labor warranty",
-                "10% off new unit purchases",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm" style={{ color: "#ffffff" }}>
-                  <span
-                    className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5 text-xs font-bold"
-                    style={{ background: "#f59e0b", color: "#0a1628" }}
+      {/* Service agreement */}
+      <section
+        id="service-agreement"
+        className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-8"
+      >
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-ink p-8 md:p-14">
+            <div aria-hidden className="dot-grid absolute inset-0 opacity-40" />
+            <div
+              aria-hidden
+              className="absolute -top-32 -right-24 h-80 w-80 rounded-full bg-ember/20 blur-[110px]"
+            />
+            <div className="relative grid gap-12 lg:grid-cols-2">
+              <div>
+                <p className="eyebrow flex items-center gap-2 text-amber">
+                  <BoltIcon className="h-3.5 w-3.5" strokeWidth={2} />
+                  Maintenance plan
+                </p>
+                <h2 className="display mt-4 text-4xl text-paper md:text-5xl">
+                  The Service{" "}
+                  <em className="wonk text-amber italic">Agreement</em>.
+                </h2>
+                <p className="mt-6 max-w-md text-base leading-relaxed text-paper/65">
+                  Annual coverage that pays for itself. Two tune-ups, priority
+                  status when something breaks at 2 a.m., and discounts on
+                  everything else.
+                </p>
+                <Link href="/contact" className="btn btn-ember mt-9">
+                  Ask about the agreement
+                  <ArrowIcon className="h-4 w-4" />
+                </Link>
+              </div>
+              <ul className="space-y-3.5 self-center">
+                {agreementPerks.map((perk) => (
+                  <li
+                    key={perk}
+                    className="flex items-start gap-3 border-b border-paper/10 pb-3.5 text-sm text-paper/85"
                   >
-                    ✓
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/contact"
-              className="inline-flex items-center px-8 py-4 rounded-full text-sm font-semibold"
-              style={{ background: "#f59e0b", color: "#0a1628" }}
-            >
-              Ask About a Service Agreement
-            </Link>
+                    <CheckIcon
+                      className="mt-0.5 h-4 w-4 shrink-0 text-amber"
+                      strokeWidth={2.2}
+                    />
+                    {perk}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </FadeIn>
+        </Reveal>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-6" style={{ background: "#f8fafc" }}>
-        <FadeIn>
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#0a1628" }}>
-              Not Sure What You Need?
-            </h2>
-            <p className="text-base leading-relaxed mb-8" style={{ color: "#475569" }}>
-              Give us a call and describe what&apos;s going on. We&apos;ll help
-              you figure out whether you need a repair, a tune-up, or something
-              new — no pressure, no upsell.
-            </p>
-            <a
-              href="tel:8602961281"
-              className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200"
-              style={{ background: "#f59e0b", color: "#0a1628" }}
-            >
-              Call 860-296-1281
-            </a>
-          </div>
-        </FadeIn>
-      </section>
+      <CTABand
+        title={
+          <>
+            Not sure what you{" "}
+            <em className="wonk text-amber italic">need</em>?
+          </>
+        }
+        copy="Call and describe what's going on. We'll tell you whether it's a repair, a tune-up, or something new — no pressure, no upsell."
+      />
     </>
   );
 }

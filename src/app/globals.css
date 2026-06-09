@@ -1,14 +1,50 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-navy: #0a1628;
-  --color-navy-light: #112240;
-  --color-blue: #1e6fbf;
-  --color-blue-light: #3b82f6;
-  --color-amber: #f59e0b;
-  --color-amber-light: #fbbf24;
-  --color-slate: #e2e8f0;
-  --color-muted: #94a3b8;
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* Paper & ink */
+  --color-paper: #faf6ef;
+  --color-cream: #f3ecdf;
+  --color-ink: #151c25;
+  --color-ink-2: #202b38;
+  --color-body: #4f5963;
+  --color-line: #e4dccb;
+
+  /* Temperature accents */
+  --color-ember: #e05410;
+  --color-ember-deep: #aa3a06;
+  --color-ember-soft: #fbe9dc;
+  --color-amber: #f5a00b;
+  --color-glacier: #2e7dce;
+  --color-glacier-deep: #1d4f87;
+  --color-glacier-soft: #e3eef8;
+
+  /* Motion */
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+  --animate-spin-slow: spin 28s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(224, 84, 16, 0.45);
+    }
+    55% {
+      opacity: 0.75;
+      box-shadow: 0 0 0 7px rgba(224, 84, 16, 0);
+    }
+  }
 }
 
 html {
@@ -16,13 +52,161 @@ html {
 }
 
 body {
-  background: #ffffff;
-  color: #0a1628;
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: #f59e0b;
-  color: #0a1628;
+  background: var(--color-ember);
+  color: var(--color-paper);
+}
+
+/* Film grain over everything — tactile, print-like */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@layer components {
+  /* Mono micro-label used for eyebrows, indices, specs */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Display headline defaults */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+
+  .wonk {
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 550;
+    padding: 0.95rem 1.75rem;
+    transition: background-color 0.25s ease, color 0.25s ease,
+      border-color 0.25s ease, transform 0.25s ease;
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-ember {
+    background: var(--color-ember);
+    color: var(--color-paper);
+  }
+  .btn-ember:hover {
+    background: var(--color-ink);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ink:hover {
+    background: var(--color-ember);
+  }
+  .btn-ghost {
+    border: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+    color: var(--color-ink);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-ink);
+  }
+  .btn-paper {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .btn-paper:hover {
+    background: var(--color-amber);
+  }
+  .btn-ghost-dark {
+    border: 1px solid rgba(250, 246, 239, 0.28);
+    color: var(--color-paper);
+    background: transparent;
+  }
+  .btn-ghost-dark:hover {
+    border-color: var(--color-paper);
+  }
+
+  /* Temperature rule — the recurring cold→hot gradient hairline */
+  .temp-rule {
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      var(--color-glacier),
+      color-mix(in srgb, var(--color-line) 60%, transparent) 35%,
+      color-mix(in srgb, var(--color-line) 60%, transparent) 65%,
+      var(--color-ember)
+    );
+  }
+
+  /* Form fields */
+  .field {
+    width: 100%;
+    border-radius: 0.9rem;
+    border: 1px solid var(--color-line);
+    background: #fffdf8;
+    padding: 0.8rem 1rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field::placeholder {
+    color: #a99c8e;
+  }
+  .field:focus {
+    border-color: var(--color-ember);
+    box-shadow: 0 0 0 3px rgba(224, 84, 16, 0.12);
+  }
+
+  /* Soft dotted backdrop for icon plates */
+  .dot-grid {
+    background-image: radial-gradient(
+      rgba(250, 246, 239, 0.16) 1px,
+      transparent 1px
+    );
+    background-size: 18px 18px;
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
 }

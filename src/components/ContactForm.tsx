@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { FlameIcon, SnowflakeIcon, CheckIcon } from "@/components/icons";
+import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
 
 type FormState = {
   firstName: string;
@@ -10,13 +12,12 @@ type FormState = {
   email: string;
   bestTime: string;
   street: string;
-  street2: string;
   city: string;
   zip: string;
   existingCustomer: string;
   heatProblem: boolean;
   coolingProblem: boolean;
-  otherProblems: string;
+  notes: string;
 };
 
 const initialForm: FormState = {
@@ -26,64 +27,39 @@ const initialForm: FormState = {
   email: "",
   bestTime: "Anytime",
   street: "",
-  street2: "",
   city: "",
   zip: "",
   existingCustomer: "",
   heatProblem: false,
   coolingProblem: false,
-  otherProblems: "",
+  notes: "",
 };
 
-const PANEL_BG = "#ffffff";
-const PANEL_BORDER = "1px solid #e2e8f0";
-const PANEL_SHADOW = "0 4px 24px rgba(15,23,42,0.05)";
-
-const TEXT_DARK = "#0a1628";
-const TEXT_MUTED = "#475569";
+const label = "eyebrow mb-2.5 block !text-[0.6rem] text-body/80";
 
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState<FormState>(initialForm);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-  };
-
-  const inputClass =
-    "w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 focus:ring-2 focus:ring-blue-500";
-  const inputStyle: React.CSSProperties = {
-    background: "#f8fafc",
-    border: "1px solid #e2e8f0",
-    color: TEXT_DARK,
-  };
-  const labelClass = "block text-xs font-semibold uppercase tracking-wide mb-2";
-  const labelStyle: React.CSSProperties = { color: TEXT_MUTED };
-
   if (sent) {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4 }}
-        className="p-12 rounded-2xl text-center"
-        style={{ background: PANEL_BG, border: PANEL_BORDER, boxShadow: PANEL_SHADOW }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-[2rem] border border-line bg-[#fffdf8] p-12 text-center md:p-16"
       >
-        <div
-          className="w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-5"
-          style={{ background: "#fff7ed", color: "#f59e0b" }}
-        >
-          ✓
-        </div>
-        <h2 className="text-xl font-bold mb-3" style={{ color: TEXT_DARK }}>
-          Message Received
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-ember-soft text-ember">
+          <CheckIcon className="h-7 w-7" strokeWidth={2.2} />
+        </span>
+        <h2 className="display mt-7 text-4xl text-ink italic" lang="it">
+          Grazie.
         </h2>
-        <p className="text-sm leading-relaxed" style={{ color: TEXT_MUTED }}>
-          Thanks for reaching out. We&apos;ll be in touch shortly. For urgent
-          issues, call us at{" "}
-          <a href="tel:8602961281" className="font-semibold" style={{ color: "#f59e0b" }}>
-            860-296-1281
+        <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-body">
+          We got your request and we&apos;ll be in touch shortly. For urgent
+          issues, call{" "}
+          <a href={PHONE_TEL} className="font-semibold text-ember">
+            {PHONE_DISPLAY}
           </a>
           .
         </p>
@@ -93,92 +69,96 @@ export default function ContactForm() {
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="p-8 rounded-2xl space-y-6"
-      style={{ background: PANEL_BG, border: PANEL_BORDER, boxShadow: PANEL_SHADOW }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        setSent(true);
+      }}
+      className="space-y-7 rounded-[2rem] border border-line bg-[#fffdf8] p-8 md:p-10"
     >
-      <div>
-        <h2 className="text-lg font-semibold" style={{ color: TEXT_DARK }}>
-          Service Request
+      <div className="border-b border-line pb-6">
+        <p className="eyebrow text-ember">Service request</p>
+        <h2 className="display mt-3 text-3xl text-ink">
+          Tell us what&apos;s going on.
         </h2>
-        <p className="text-xs mt-1" style={{ color: TEXT_MUTED }}>
-          For urgent repairs, please call{" "}
-          <span style={{ color: "#f59e0b" }}>860-296-1281</span>.
+        <p className="mt-2 text-xs text-body">
+          For urgent repairs, call{" "}
+          <a href={PHONE_TEL} className="font-mono font-semibold text-ember">
+            {PHONE_DISPLAY}
+          </a>{" "}
+          — a person answers.
         </p>
       </div>
 
-      {/* Name */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label className={labelClass} style={labelStyle}>First Name *</label>
+          <label htmlFor="firstName" className={label}>
+            First name *
+          </label>
           <input
+            id="firstName"
             type="text"
             required
-            className={inputClass}
-            style={inputStyle}
+            className="field"
             value={form.firstName}
             onChange={(e) => setForm({ ...form, firstName: e.target.value })}
           />
         </div>
         <div>
-          <label className={labelClass} style={labelStyle}>Last Name *</label>
+          <label htmlFor="lastName" className={label}>
+            Last name *
+          </label>
           <input
+            id="lastName"
             type="text"
             required
-            className={inputClass}
-            style={inputStyle}
+            className="field"
             value={form.lastName}
             onChange={(e) => setForm({ ...form, lastName: e.target.value })}
           />
         </div>
-      </div>
-
-      {/* Phone + Email */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className={labelClass} style={labelStyle}>Phone *</label>
+          <label htmlFor="phone" className={label}>
+            Phone *
+          </label>
           <input
+            id="phone"
             type="tel"
             required
             placeholder="860-000-0000"
-            className={inputClass}
-            style={inputStyle}
+            className="field"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
         </div>
         <div>
-          <label className={labelClass} style={labelStyle}>Email *</label>
+          <label htmlFor="email" className={label}>
+            Email *
+          </label>
           <input
+            id="email"
             type="email"
             required
             placeholder="you@example.com"
-            className={inputClass}
-            style={inputStyle}
+            className="field"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
         </div>
       </div>
 
-      {/* Best time */}
       <div>
-        <label className={labelClass} style={labelStyle}>When can we contact you?</label>
+        <span className={label}>Best time to reach you</span>
         <div className="flex flex-wrap gap-2">
           {["Anytime", "Daytime", "Evening"].map((opt) => (
             <button
               type="button"
               key={opt}
               onClick={() => setForm({ ...form, bestTime: opt })}
-              className="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-150"
-              style={{
-                background: form.bestTime === opt ? "#f59e0b" : "#f1f5f9",
-                color: form.bestTime === opt ? "#0a1628" : "#475569",
-                border:
-                  form.bestTime === opt
-                    ? "1px solid #f59e0b"
-                    : "1px solid #e2e8f0",
-              }}
+              className={`rounded-full border px-5 py-2.5 font-mono text-[0.68rem] tracking-wider uppercase transition-all duration-200 ${
+                form.bestTime === opt
+                  ? "border-ember bg-ember text-paper"
+                  : "border-line bg-paper text-body hover:border-ember/50"
+              }`}
             >
               {opt}
             </button>
@@ -186,64 +166,58 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* Address */}
-      <div className="space-y-3">
-        <label className={labelClass} style={labelStyle}>Address</label>
-        <input
-          type="text"
-          placeholder="Street address"
-          className={inputClass}
-          style={inputStyle}
-          value={form.street}
-          onChange={(e) => setForm({ ...form, street: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Address line 2 (optional)"
-          className={inputClass}
-          style={inputStyle}
-          value={form.street2}
-          onChange={(e) => setForm({ ...form, street2: e.target.value })}
-        />
-        <div className="grid grid-cols-2 gap-3">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="sm:col-span-2">
+          <label htmlFor="street" className={label}>
+            Street address
+          </label>
           <input
+            id="street"
             type="text"
-            placeholder="City"
-            className={inputClass}
-            style={inputStyle}
+            className="field"
+            value={form.street}
+            onChange={(e) => setForm({ ...form, street: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="city" className={label}>
+            City
+          </label>
+          <input
+            id="city"
+            type="text"
+            className="field"
             value={form.city}
             onChange={(e) => setForm({ ...form, city: e.target.value })}
           />
+        </div>
+        <div>
+          <label htmlFor="zip" className={label}>
+            ZIP
+          </label>
           <input
+            id="zip"
             type="text"
-            placeholder="ZIP"
-            className={inputClass}
-            style={inputStyle}
+            className="field"
             value={form.zip}
             onChange={(e) => setForm({ ...form, zip: e.target.value })}
           />
         </div>
       </div>
 
-      {/* Existing customer */}
       <div>
-        <label className={labelClass} style={labelStyle}>Are you an existing customer?</label>
+        <span className={label}>Existing customer?</span>
         <div className="flex gap-2">
           {["Yes", "No"].map((opt) => (
             <button
               type="button"
               key={opt}
               onClick={() => setForm({ ...form, existingCustomer: opt })}
-              className="px-5 py-2 rounded-full text-xs font-semibold transition-all duration-150"
-              style={{
-                background:
-                  form.existingCustomer === opt ? "#1e6fbf" : "#f1f5f9",
-                color: form.existingCustomer === opt ? "#ffffff" : "#475569",
-                border:
-                  form.existingCustomer === opt
-                    ? "1px solid #1e6fbf"
-                    : "1px solid #e2e8f0",
-              }}
+              className={`rounded-full border px-6 py-2.5 font-mono text-[0.68rem] tracking-wider uppercase transition-all duration-200 ${
+                form.existingCustomer === opt
+                  ? "border-ink bg-ink text-paper"
+                  : "border-line bg-paper text-body hover:border-ink/50"
+              }`}
             >
               {opt}
             </button>
@@ -251,70 +225,82 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* Problem checkboxes */}
       <div>
-        <label className={labelClass} style={labelStyle}>What&apos;s the issue?</label>
-        <div className="flex flex-col sm:flex-row gap-3">
+        <span className={label}>What&apos;s the issue?</span>
+        <div className="grid gap-3 sm:grid-cols-2">
           <label
-            className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer flex-1"
-            style={{
-              background: form.heatProblem ? "#fff7ed" : "#f8fafc",
-              border: form.heatProblem
-                ? "1px solid #fdba74"
-                : "1px solid #e2e8f0",
-            }}
+            className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-5 py-4 transition-all duration-200 ${
+              form.heatProblem
+                ? "border-ember/50 bg-ember-soft"
+                : "border-line bg-paper hover:border-ember/40"
+            }`}
           >
             <input
               type="checkbox"
               checked={form.heatProblem}
-              onChange={(e) => setForm({ ...form, heatProblem: e.target.checked })}
-              className="w-4 h-4 accent-amber-500"
+              onChange={(e) =>
+                setForm({ ...form, heatProblem: e.target.checked })
+              }
+              className="sr-only"
             />
-            <span className="text-sm" style={{ color: TEXT_DARK }}>
+            <FlameIcon
+              className={`h-5 w-5 ${form.heatProblem ? "text-ember" : "text-body/50"}`}
+            />
+            <span
+              className={`text-sm font-medium ${form.heatProblem ? "text-ember-deep" : "text-ink-2"}`}
+            >
               Problem with heat
             </span>
+            {form.heatProblem && (
+              <CheckIcon className="ml-auto h-4 w-4 text-ember" strokeWidth={2.4} />
+            )}
           </label>
           <label
-            className="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer flex-1"
-            style={{
-              background: form.coolingProblem ? "#fff7ed" : "#f8fafc",
-              border: form.coolingProblem
-                ? "1px solid #fdba74"
-                : "1px solid #e2e8f0",
-            }}
+            className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-5 py-4 transition-all duration-200 ${
+              form.coolingProblem
+                ? "border-glacier/50 bg-glacier-soft"
+                : "border-line bg-paper hover:border-glacier/40"
+            }`}
           >
             <input
               type="checkbox"
               checked={form.coolingProblem}
-              onChange={(e) => setForm({ ...form, coolingProblem: e.target.checked })}
-              className="w-4 h-4 accent-amber-500"
+              onChange={(e) =>
+                setForm({ ...form, coolingProblem: e.target.checked })
+              }
+              className="sr-only"
             />
-            <span className="text-sm" style={{ color: TEXT_DARK }}>
+            <SnowflakeIcon
+              className={`h-5 w-5 ${form.coolingProblem ? "text-glacier" : "text-body/50"}`}
+            />
+            <span
+              className={`text-sm font-medium ${form.coolingProblem ? "text-glacier-deep" : "text-ink-2"}`}
+            >
               Problem with cooling
             </span>
+            {form.coolingProblem && (
+              <CheckIcon className="ml-auto h-4 w-4 text-glacier" strokeWidth={2.4} />
+            )}
           </label>
         </div>
       </div>
 
-      {/* Other problems */}
       <div>
-        <label className={labelClass} style={labelStyle}>Tell us more</label>
+        <label htmlFor="notes" className={label}>
+          Tell us more
+        </label>
         <textarea
+          id="notes"
           rows={4}
-          placeholder="Describe the issue or what you're looking for..."
-          className={inputClass}
-          style={{ ...inputStyle, resize: "vertical" }}
-          value={form.otherProblems}
-          onChange={(e) => setForm({ ...form, otherProblems: e.target.value })}
+          placeholder="Describe the issue or what you're looking for…"
+          className="field resize-y"
+          value={form.notes}
+          onChange={(e) => setForm({ ...form, notes: e.target.value })}
         />
       </div>
 
-      <button
-        type="submit"
-        className="w-full py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:opacity-90"
-        style={{ background: "#f59e0b", color: "#0a1628" }}
-      >
-        Send Request
+      <button type="submit" className="btn btn-ember w-full !py-4">
+        Send request
       </button>
     </form>
   );

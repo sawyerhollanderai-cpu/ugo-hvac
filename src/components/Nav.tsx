@@ -1,168 +1,165 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import Logo, { LogoMark } from "@/components/Logo";
+import { PhoneIcon } from "@/components/icons";
+import { PHONE_DISPLAY, PHONE_TEL, ADDRESS, HOURS } from "@/lib/site";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/financing", label: "Financing" },
   { href: "/about", label: "About" },
+  { href: "/financing", label: "Financing" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const lastY = useRef(0);
   const pathname = usePathname();
-  const onHome = pathname === "/";
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setHidden(y > 140 && y > lastY.current + 4);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
-
-  // On non-home pages, treat as already "scrolled" (no dark hero behind nav)
-  const isLight = scrolled || !onHome;
-  const linkColorDefault = isLight ? "#0a1628" : "#e2e8f0";
-  const hamburgerColor = isLight ? "#0a1628" : "#e2e8f0";
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: isLight
-          ? "rgba(255,255,255,0.97)"
-          : "linear-gradient(to bottom, rgba(10,22,40,0.85), transparent)",
-        backdropFilter: isLight ? "blur(12px)" : "none",
-        borderBottom: isLight ? "1px solid #e2e8f0" : "none",
-      }}
-    >
-      <nav className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10/ugo-logo.png"
-            alt="Ugo DiGrazia Heating & Cooling"
-            width={48}
-            height={48}
-            className="h-10 w-auto"
-          />
-          <span
-            className="hidden sm:block text-sm font-semibold leading-tight"
-            style={{ color: linkColorDefault }}
-          >
-            Ugo DiGrazia
-            <br />
-            <span
-              className="font-normal"
-              style={{ color: isLight ? "#475569" : "#94a3b8" }}
-            >
-              Heating &amp; Cooling
-            </span>
-          </span>
-        </Link>
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 px-4 pt-4 transition-transform duration-500 ${
+          hidden && !open ? "-translate-y-[130%]" : "translate-y-0"
+        }`}
+      >
+        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between rounded-2xl border border-line bg-paper/85 pr-2.5 pl-4 shadow-[0_10px_40px_-18px_rgba(21,28,37,0.35)] backdrop-blur-xl">
+          <Logo />
 
-        {/* Desktop links */}
-        <ul className="hidden lg:flex items-center gap-6">
-          {links.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className="text-sm font-medium transition-colors duration-200"
-                style={{
-                  color: pathname === href ? "#f59e0b" : linkColorDefault,
-                }}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href="tel:8602961281"
-          className="hidden lg:inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200"
-          style={{ background: "#f59e0b", color: "#0a1628" }}
-        >
-          860-296-1281
-        </a>
-
-        {/* Mobile hamburger */}
-        <button
-          className="lg:hidden p-2 rounded-lg"
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          <div className="w-6 space-y-1.5">
-            <span
-              className="block h-0.5 transition-all duration-300"
-              style={{
-                background: hamburgerColor,
-                transform: open ? "translateY(8px) rotate(45deg)" : "none",
-              }}
-            />
-            <span
-              className="block h-0.5 transition-all duration-300"
-              style={{ background: hamburgerColor, opacity: open ? 0 : 1 }}
-            />
-            <span
-              className="block h-0.5 transition-all duration-300"
-              style={{
-                background: hamburgerColor,
-                transform: open ? "translateY(-8px) rotate(-45deg)" : "none",
-              }}
-            />
-          </div>
-        </button>
-      </nav>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="lg:hidden overflow-hidden"
-            style={{
-              background: "rgba(255,255,255,0.98)",
-              borderBottom: "1px solid #e2e8f0",
-            }}
-          >
-            <ul className="flex flex-col px-6 py-4 gap-4">
-              {links.map(({ href, label }) => (
+          <ul className="hidden items-center gap-7 lg:flex">
+            {links.map(({ href, label }) => {
+              const active = pathname.startsWith(href);
+              return (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="block text-base font-medium py-2"
-                    style={{
-                      color: pathname === href ? "#f59e0b" : "#0a1628",
-                    }}
+                    className={`relative text-sm font-medium transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-ember after:transition-all after:duration-300 hover:text-ember ${
+                      active
+                        ? "text-ember after:w-full"
+                        : "text-ink after:w-0 hover:after:w-full"
+                    }`}
                   >
                     {label}
                   </Link>
                 </li>
-              ))}
-              <li>
-                <a
-                  href="tel:8602961281"
-                  className="inline-flex items-center px-5 py-2 rounded-full text-sm font-semibold"
-                  style={{ background: "#f59e0b", color: "#0a1628" }}
-                >
-                  860-296-1281
-                </a>
-              </li>
+              );
+            })}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={PHONE_TEL}
+              className="btn btn-ink hidden !px-5 !py-2.5 lg:inline-flex"
+            >
+              <PhoneIcon className="h-4 w-4" strokeWidth={1.8} />
+              <span className="font-mono text-[0.8rem] tracking-wide">
+                {PHONE_DISPLAY}
+              </span>
+            </a>
+            <a
+              href={PHONE_TEL}
+              aria-label={`Call ${PHONE_DISPLAY}`}
+              className="btn btn-ink !p-3 lg:hidden"
+            >
+              <PhoneIcon className="h-4 w-4" strokeWidth={1.8} />
+            </a>
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              className="relative h-11 w-11 rounded-full border border-line bg-paper lg:hidden"
+            >
+              <span
+                className={`absolute left-1/2 top-1/2 block h-0.5 w-5 -translate-x-1/2 bg-ink transition-transform duration-300 ${
+                  open ? "rotate-45" : "-translate-y-[4px]"
+                }`}
+              />
+              <span
+                className={`absolute left-1/2 top-1/2 block h-0.5 w-5 -translate-x-1/2 bg-ink transition-transform duration-300 ${
+                  open ? "-rotate-45" : "translate-y-[3px]"
+                }`}
+              />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 flex flex-col bg-ink px-6 pt-28 pb-10 lg:hidden"
+          >
+            <ul className="space-y-1">
+              {[{ href: "/", label: "Home" }, ...links].map(
+                ({ href, label }, i) => (
+                  <motion.li
+                    key={href}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.06 + i * 0.05, duration: 0.45 }}
+                  >
+                    <Link
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className={`display block py-2.5 text-4xl ${
+                        pathname === href ? "text-ember italic" : "text-paper"
+                      }`}
+                    >
+                      {label}
+                    </Link>
+                  </motion.li>
+                )
+              )}
             </ul>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="mt-auto space-y-4 border-t border-paper/15 pt-6"
+            >
+              <a
+                href={PHONE_TEL}
+                className="display block text-3xl text-paper"
+              >
+                {PHONE_DISPLAY}
+              </a>
+              <p className="eyebrow text-paper/50">
+                {HOURS} · 24/7 Emergency
+              </p>
+              <p className="text-sm text-paper/50">{ADDRESS}</p>
+              <LogoMark className="h-9 w-9 text-sm !bg-paper !text-ink" />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

@@ -1,54 +1,56 @@
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "@/components/Logo";
+import {
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  EMAIL,
+  ADDRESS,
+  LICENSE,
+  HOURS,
+  services,
+} from "@/lib/site";
+
+const explore = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/financing", label: "Financing" },
+  { href: "/careers", label: "Careers" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#070f1c", borderTop: "1px solid rgba(30,111,191,0.15)" }}>
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Brand */}
-          <div>
-            <Image
-              src="https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10/ugo-logo.png"
-              alt="Ugo DiGrazia Heating & Cooling"
-              width={56}
-              height={56}
-              className="h-12 w-auto mb-4"
-            />
-            <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
-              Hartford&apos;s trusted HVAC company since the 1960s.
-              Carrier Factory-Authorized Dealer. License #306632.
+    <footer className="relative overflow-hidden bg-ink text-paper">
+      <div className="temp-rule" />
+
+      <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-5">
+            <Logo dark />
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/60">
+              A two-generation family trade. Carrier Factory-Authorized
+              installation, honest repair, and in-house sheet metal — keeping
+              Greater Hartford comfortable since 1972.
             </p>
-            <div className="mt-4">
-              <Image
-                src="https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10/carrier-factory-authorized-dealer.png"
-                alt="Carrier Factory Authorized Dealer"
-                width={140}
-                height={50}
-                className="h-10 w-auto"
-              />
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <span className="eyebrow rounded-full border border-paper/20 px-4 py-2 !text-[0.58rem] text-paper/75">
+                Carrier Factory Authorized Dealer
+              </span>
+              <span className="eyebrow rounded-full border border-paper/20 px-4 py-2 !text-[0.58rem] text-paper/75">
+                {LICENSE}
+              </span>
             </div>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: "#f59e0b" }}>
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/services", label: "Services" },
-                { href: "/financing", label: "Financing" },
-                { href: "/about", label: "About Us" },
-                { href: "/careers", label: "Careers" },
-                { href: "/contact", label: "Contact" },
-              ].map(({ href, label }) => (
+          <div className="md:col-span-2">
+            <p className="eyebrow mb-5 text-ember">Explore</p>
+            <ul className="space-y-2.5">
+              {explore.map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm transition-colors duration-200 hover:text-amber-400"
-                    style={{ color: "#94a3b8" }}
+                    className="text-sm text-paper/65 transition-colors duration-200 hover:text-paper"
                   >
                     {label}
                   </Link>
@@ -57,38 +59,67 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: "#f59e0b" }}>
-              Contact Us
-            </h3>
-            <ul className="space-y-3 text-sm" style={{ color: "#94a3b8" }}>
-              <li>
-                <a href="tel:8602961281" className="hover:text-white transition-colors">
-                  860-296-1281
-                </a>
-              </li>
-              <li>
-                <a href="mailto:ugo@ugohvac.com" className="hover:text-white transition-colors">
-                  ugo@ugohvac.com
-                </a>
-              </li>
-              <li>436 Franklin Ave, Hartford, CT 06114</li>
-              <li>Mon–Fri: 8:00AM – 4:30PM</li>
-              <li className="font-medium" style={{ color: "#f59e0b" }}>
-                24/7 Emergency Service
-              </li>
+          <div className="md:col-span-2">
+            <p className="eyebrow mb-5 text-ember">Services</p>
+            <ul className="space-y-2.5">
+              {services.slice(0, 6).map(({ id, title }) => (
+                <li key={id}>
+                  <Link
+                    href={`/services#${id}`}
+                    className="text-sm text-paper/65 transition-colors duration-200 hover:text-paper"
+                  >
+                    {title}
+                  </Link>
+                </li>
+              ))}
             </ul>
+          </div>
+
+          <div className="col-span-2 md:col-span-3">
+            <p className="eyebrow mb-5 text-ember">Talk to us</p>
+            <a
+              href={PHONE_TEL}
+              className="display block text-2xl text-paper transition-colors hover:text-amber"
+            >
+              {PHONE_DISPLAY}
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="mt-2 block text-sm text-paper/65 hover:text-paper"
+            >
+              {EMAIL}
+            </a>
+            <p className="mt-4 text-sm leading-relaxed text-paper/65">
+              {ADDRESS}
+            </p>
+            <p className="mt-4 font-mono text-[0.7rem] tracking-wider text-paper/50 uppercase">
+              {HOURS}
+            </p>
+            <p className="mt-2 inline-flex items-center gap-2 font-mono text-[0.7rem] tracking-wider text-amber uppercase">
+              <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-ember" />
+              24/7 Emergency Service
+            </p>
           </div>
         </div>
 
-        <div
-          className="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs"
-          style={{ borderTop: "1px solid rgba(30,111,191,0.1)", color: "#475569" }}
-        >
-          <p>&copy; {new Date().getFullYear()} Ugo DiGrazia Heating & Cooling LLC. All rights reserved.</p>
-          <p>Serving Greater Hartford, CT</p>
+        <div className="mt-16 flex flex-col items-start justify-between gap-3 border-t border-paper/12 pt-6 text-xs text-paper/40 sm:flex-row sm:items-center">
+          <p>
+            © {new Date().getFullYear()} Ugo DiGrazia Heating &amp; Cooling
+            LLC. All rights reserved.
+          </p>
+          <p className="display italic text-paper/55">
+            <span lang="it">Due generazioni, un mestiere.</span>{" "}
+            <span aria-hidden>✳</span> Since 1972
+          </p>
         </div>
+      </div>
+
+      {/* Watermark */}
+      <div
+        aria-hidden
+        className="display pointer-events-none -mb-[0.26em] text-center text-[clamp(4.5rem,16.5vw,15rem)] leading-none font-semibold whitespace-nowrap text-paper/[0.05] italic"
+      >
+        DiGrazia
       </div>
     </footer>
   );
