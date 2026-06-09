@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import {
+  IMG,
   PHONE_DISPLAY,
   PHONE_TEL,
   EMAIL,
@@ -33,9 +35,15 @@ export default function Footer() {
               installation, honest repair, and in-house sheet metal — keeping
               Greater Hartford comfortable since 1972.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <span className="eyebrow rounded-full border border-paper/20 px-4 py-2 !text-[0.58rem] text-paper/75">
-                Carrier Factory Authorized Dealer
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <span className="inline-flex items-center rounded-xl bg-paper px-4 py-3">
+                <Image
+                  src={IMG.carrierBadge}
+                  alt="Carrier Factory Authorized Dealer"
+                  width={150}
+                  height={54}
+                  className="h-9 w-auto object-contain"
+                />
               </span>
               <span className="eyebrow rounded-full border border-paper/20 px-4 py-2 !text-[0.58rem] text-paper/75">
                 {LICENSE}

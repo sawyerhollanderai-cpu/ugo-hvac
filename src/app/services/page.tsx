@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import CTABand from "@/components/CTABand";
+import Credentials from "@/components/Credentials";
 import {
   ServiceGlyph,
   ArrowIcon,
@@ -16,18 +18,19 @@ export const metadata: Metadata = {
     "Full-service HVAC in Greater Hartford, CT — heating, cooling, indoor air quality, duct-free systems, water heaters, in-house sheet metal fabrication, duct sealing, and plumbing.",
 };
 
-const plateBg: Record<Accent, string> = {
+// Duotone overlay so each real photo adopts the ember/glacier palette.
+const plateOverlay: Record<Accent, string> = {
   ember:
-    "bg-[radial-gradient(125%_125%_at_25%_-5%,#52200a_0%,#241108_55%,#151c25_100%)]",
+    "linear-gradient(150deg, rgba(170,58,6,0.5) 0%, rgba(21,28,37,0.55) 45%, rgba(21,28,37,0.88) 100%)",
   glacier:
-    "bg-[radial-gradient(125%_125%_at_25%_-5%,#12365c_0%,#101d2c_55%,#151c25_100%)]",
-  ink: "bg-[radial-gradient(125%_125%_at_25%_-5%,#2c3a4a_0%,#1c2632_55%,#151c25_100%)]",
+    "linear-gradient(150deg, rgba(29,79,135,0.5) 0%, rgba(21,28,37,0.55) 45%, rgba(21,28,37,0.88) 100%)",
+  ink: "linear-gradient(150deg, rgba(44,58,74,0.45) 0%, rgba(21,28,37,0.6) 45%, rgba(21,28,37,0.9) 100%)",
 };
 
-const plateAccent: Record<Accent, string> = {
+const plateBadge: Record<Accent, string> = {
   ember: "text-amber",
   glacier: "text-[#7db0e6]",
-  ink: "text-paper/80",
+  ink: "text-paper/85",
 };
 
 const statTone: Record<Accent, string> = {
@@ -87,7 +90,7 @@ export default function ServicesPage() {
       {/* Services */}
       <section className="mx-auto max-w-6xl space-y-28 px-6 py-20 md:space-y-36 md:py-28">
         {services.map(
-          ({ id, index, title, description, features, stat, accent, icon }, i) => (
+          ({ id, index, title, description, features, stat, accent, icon, img }, i) => (
             <article
               key={id}
               id={id}
@@ -95,33 +98,37 @@ export default function ServicesPage() {
                 i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
-              {/* Icon plate */}
+              {/* Photo plate — real work, palette-treated */}
               <Reveal>
-                <div
-                  className={`relative aspect-[4/3] overflow-hidden rounded-[2rem] ${plateBg[accent]}`}
-                >
-                  <div aria-hidden className="dot-grid absolute inset-0" />
+                <div className="group relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-ink">
+                  <Image
+                    src={img}
+                    alt={`${title} — Ugo DiGrazia Heating & Cooling`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0"
+                    style={{ backgroundImage: plateOverlay[accent] }}
+                  />
+                  <div aria-hidden className="dot-grid absolute inset-0 opacity-50" />
                   <span
                     aria-hidden
-                    className="display absolute -top-8 -right-2 text-[11rem] leading-none text-paper/[0.06] italic"
+                    className="display absolute -top-8 -right-2 text-[11rem] leading-none text-paper/10 italic"
                   >
                     {index}
                   </span>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span
-                      className={`flex h-28 w-28 items-center justify-center rounded-full border border-paper/20 bg-paper/[0.06] backdrop-blur-sm ${plateAccent[accent]}`}
-                    >
-                      <ServiceGlyph
-                        name={icon}
-                        className="h-12 w-12"
-                        strokeWidth={1.4}
-                      />
-                    </span>
-                  </div>
-                  <p className="eyebrow absolute bottom-5 left-6 !text-[0.58rem] text-paper/45">
+                  <span
+                    className={`absolute top-6 left-6 flex h-14 w-14 items-center justify-center rounded-full border border-paper/25 bg-ink/40 backdrop-blur-sm ${plateBadge[accent]}`}
+                  >
+                    <ServiceGlyph name={icon} className="h-6 w-6" strokeWidth={1.5} />
+                  </span>
+                  <p className="eyebrow absolute bottom-5 left-6 !text-[0.58rem] text-paper/65">
                     Ugo DiGrazia · SVC {index}
                   </p>
-                  <p className="eyebrow absolute right-6 bottom-5 !text-[0.58rem] text-paper/45">
+                  <p className="eyebrow absolute right-6 bottom-5 !text-[0.58rem] text-paper/65">
                     Est. 1972
                   </p>
                 </div>
@@ -220,6 +227,23 @@ export default function ServicesPage() {
             </div>
           </div>
         </Reveal>
+      </section>
+
+      {/* Credentials */}
+      <section className="mx-auto max-w-6xl px-6 py-24 md:py-28">
+        <Reveal>
+          <p className="eyebrow flex items-center gap-3 text-body">
+            <span className="text-ember">/ Credentials</span> certified,
+            recognized, licensed
+          </p>
+          <h2 className="display mt-4 max-w-2xl text-3xl text-ink md:text-4xl">
+            The paperwork behind the{" "}
+            <em className="wonk text-ember italic">handshake</em>.
+          </h2>
+        </Reveal>
+        <div className="mt-12">
+          <Credentials />
+        </div>
       </section>
 
       <CTABand

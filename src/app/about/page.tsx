@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import CTABand from "@/components/CTABand";
 import { ArrowIcon, StarIcon } from "@/components/icons";
-import { LICENSE } from "@/lib/site";
+import { IMG, LICENSE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -100,6 +101,13 @@ export default function AboutPage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-[2rem] bg-[radial-gradient(125%_125%_at_25%_-5%,#52200a_0%,#241108_55%,#151c25_100%)] p-10 md:p-12">
             <div aria-hidden className="dot-grid absolute inset-0" />
+            <Image
+              src={IMG.yearsSeal}
+              alt="60 Years of Service seal"
+              width={120}
+              height={120}
+              className="absolute top-7 right-7 h-24 w-24 object-contain opacity-95"
+            />
             <div className="relative">
               <p className="eyebrow text-amber">Fondata · Hartford, CT</p>
               <p className="display mt-4 text-[clamp(5rem,12vw,8.5rem)] leading-none text-paper italic">
@@ -235,12 +243,20 @@ export default function AboutPage() {
           <div className="relative overflow-hidden rounded-[2rem] bg-[radial-gradient(125%_125%_at_75%_-5%,#12365c_0%,#101d2c_55%,#151c25_100%)] p-10 text-center md:p-14">
             <div aria-hidden className="dot-grid absolute inset-0" />
             <div className="relative">
-              <p className="eyebrow text-[#7db0e6]">Authorized · Trained · Warrantied</p>
-              <p className="display mt-6 text-4xl leading-tight text-paper md:text-5xl">
-                Factory
-                <br />
-                <em className="wonk italic text-[#7db0e6]">Authorized</em>
+              <p className="eyebrow text-[#7db0e6]">
+                Authorized · Trained · Warrantied
               </p>
+              <div className="mt-7 rounded-2xl bg-paper p-7">
+                <div className="relative mx-auto flex h-28 items-center justify-center">
+                  <Image
+                    src={IMG.carrierBadge}
+                    alt="Carrier Factory Authorized Dealer"
+                    width={280}
+                    height={112}
+                    className="h-full w-auto object-contain"
+                  />
+                </div>
+              </div>
               <div className="temp-rule mx-auto mt-8 max-w-44 opacity-60" />
               <p className="eyebrow mt-8 !text-[0.6rem] text-paper/50">
                 {LICENSE} · Greater Hartford, CT

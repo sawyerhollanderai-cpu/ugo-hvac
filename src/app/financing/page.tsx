@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import CTABand from "@/components/CTABand";
 import { CheckIcon } from "@/components/icons";
+import { IMG } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Financing & Offers",
@@ -32,6 +34,7 @@ const offers = [
     sub: "up to · cash back",
     copy: "Cash back on qualifying Carrier heating and cooling systems. Stack rebates with financing for the lowest out-of-pocket on a full system upgrade. Ask us which combinations qualify.",
     accent: "text-ember",
+    img: IMG.brandCoolCash,
   },
   {
     title: "Carrier Infinity® Air Purifier",
@@ -39,6 +42,7 @@ const offers = [
     sub: "whole-home air quality",
     copy: "The most effective whole-home air purifier Carrier makes — captures particles, allergens, and bacteria far better than a standard filter. Promotional pricing available with qualifying system installs.",
     accent: "text-glacier",
+    img: IMG.brandPurifier,
   },
   {
     title: "Carrier Greenspeed® Intelligence",
@@ -46,6 +50,7 @@ const offers = [
     sub: "flagship heat pump",
     copy: "Carrier's flagship high-efficiency heat pump technology. Variable-speed operation, exceptional comfort, and the lowest operating cost in the lineup. Currently eligible for the Cool Cash rebate.",
     accent: "text-ember",
+    img: IMG.brandGreenspeed,
   },
 ];
 
@@ -138,19 +143,30 @@ export default function FinancingPage() {
             }
           />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {offers.map(({ title, headline, sub, copy, accent }, i) => (
+            {offers.map(({ title, headline, sub, copy, accent, img }, i) => (
               <Reveal key={title} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-3xl border border-line bg-paper p-9">
-                  <p className="eyebrow text-body/60">{title}</p>
-                  <p className={`display mt-5 text-[2.6rem] leading-none ${accent}`}>
-                    {headline}
-                  </p>
-                  <p className="eyebrow mt-2 !text-[0.6rem] text-body/60">
-                    {sub}
-                  </p>
-                  <p className="mt-5 flex-1 text-sm leading-relaxed text-body">
-                    {copy}
-                  </p>
+                <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-paper">
+                  <div className="relative h-44 overflow-hidden border-b border-line bg-cream">
+                    <Image
+                      src={img}
+                      alt={title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-contain p-6"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-9">
+                    <p className="eyebrow text-body/60">{title}</p>
+                    <p className={`display mt-4 text-[2.6rem] leading-none ${accent}`}>
+                      {headline}
+                    </p>
+                    <p className="eyebrow mt-2 !text-[0.6rem] text-body/60">
+                      {sub}
+                    </p>
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-body">
+                      {copy}
+                    </p>
+                  </div>
                 </div>
               </Reveal>
             ))}

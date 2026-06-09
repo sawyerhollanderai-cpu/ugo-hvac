@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ThermoDial from "@/components/ThermoDial";
@@ -5,6 +6,7 @@ import Marquee from "@/components/Marquee";
 import Counter from "@/components/Counter";
 import SectionHeading from "@/components/SectionHeading";
 import HeatCoolSplit from "@/components/HeatCoolSplit";
+import Credentials from "@/components/Credentials";
 import CTABand from "@/components/CTABand";
 import {
   ServiceGlyph,
@@ -15,6 +17,7 @@ import {
 } from "@/components/icons";
 import {
   services,
+  IMG,
   PHONE_DISPLAY,
   PHONE_TEL,
   LICENSE,
@@ -76,6 +79,7 @@ const offers = [
     sub: "cash back",
     copy: "On qualifying Carrier heating & cooling systems. Stack rebates with financing for the lowest out-of-pocket.",
     accent: "text-ember",
+    img: IMG.brandCoolCash,
   },
   {
     title: "Carrier Infinity®",
@@ -83,6 +87,7 @@ const offers = [
     sub: "whole-home purifier",
     copy: "The most effective whole-home air purifier Carrier makes — promotional pricing with qualifying installs.",
     accent: "text-glacier",
+    img: IMG.brandPurifier,
   },
   {
     title: "Greenspeed® Intelligence",
@@ -90,6 +95,7 @@ const offers = [
     sub: "flagship heat pump",
     copy: "Variable-speed comfort with the lowest operating cost in the lineup. Currently Cool Cash eligible.",
     accent: "text-ember",
+    img: IMG.brandGreenspeed,
   },
 ];
 
@@ -263,6 +269,15 @@ export default function Home() {
       <section className="border-y border-line bg-cream/70">
         <div className="mx-auto grid max-w-6xl gap-16 px-6 py-24 md:py-32 lg:grid-cols-2">
           <div>
+            <Reveal>
+              <Image
+                src={IMG.yearsSeal}
+                alt="Recognized by Carrier for 60 years of service"
+                width={104}
+                height={104}
+                className="mb-7 h-24 w-24 object-contain"
+              />
+            </Reveal>
             <SectionHeading
               index="02"
               eyebrow="La famiglia"
@@ -399,6 +414,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ───────────────────────────── Credentials */}
+      <section className="border-t border-line bg-cream/70 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <SectionHeading
+            index="04"
+            eyebrow="Certified · recognized · licensed"
+            title={
+              <>
+                Credentials you can{" "}
+                <em className="wonk text-ember italic">check</em>.
+              </>
+            }
+            description="Carrier Factory-Authorized, recognized for six decades of service, and a fully licensed Connecticut contractor. The real badges from a real shop."
+          />
+          <div className="mt-14">
+            <Credentials />
+          </div>
+        </div>
+      </section>
+
       {/* ───────────────────────────── Maintenance teaser */}
       <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <Reveal>
@@ -429,7 +464,7 @@ export default function Home() {
       <section className="border-y border-line bg-cream/70 py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHeading
-            index="04"
+            index="05"
             eyebrow="In their words"
             title={
               <>
@@ -476,7 +511,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
-            index="05"
+            index="06"
             eyebrow="Current offers"
             title={
               <>
@@ -497,24 +532,35 @@ export default function Home() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {offers.map(({ title, headline, sub, copy, accent }, i) => (
+          {offers.map(({ title, headline, sub, copy, accent, img }, i) => (
             <Reveal key={title} delay={i * 0.08}>
               <Link
                 href="/financing"
-                className="group flex h-full flex-col rounded-3xl border border-line bg-[#fffdf8] p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-35px_rgba(21,28,37,0.4)]"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-[#fffdf8] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-35px_rgba(21,28,37,0.4)]"
               >
-                <p className="eyebrow text-body/60">{title}</p>
-                <p className={`display mt-5 text-4xl ${accent}`}>{headline}</p>
-                <p className="eyebrow mt-1 !text-[0.6rem] text-body/60">
-                  {sub}
-                </p>
-                <p className="mt-5 flex-1 text-sm leading-relaxed text-body">
-                  {copy}
-                </p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink">
-                  Details
-                  <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
+                <div className="relative h-44 overflow-hidden border-b border-line bg-cream">
+                  <Image
+                    src={img}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-8">
+                  <p className="eyebrow text-body/60">{title}</p>
+                  <p className={`display mt-4 text-4xl ${accent}`}>{headline}</p>
+                  <p className="eyebrow mt-1 !text-[0.6rem] text-body/60">
+                    {sub}
+                  </p>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-body">
+                    {copy}
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink">
+                    Details
+                    <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </div>
               </Link>
             </Reveal>
           ))}

@@ -3,7 +3,21 @@ export const PHONE_TEL = "tel:8602961281";
 export const EMAIL = "ugo@ugohvac.com";
 export const ADDRESS = "436 Franklin Ave, Hartford, CT 06114";
 export const LICENSE = "CT Lic. #306632";
+export const LICENSE_NO = "306632";
 export const HOURS = "Mon–Fri · 8:00a – 4:30p";
+
+/** Original site media library (WordPress). Reachable in production. */
+export const MEDIA = "https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10";
+
+export const IMG = {
+  hero: `${MEDIA}/hero.jpg`,
+  logo: `${MEDIA}/ugo-logo.png`,
+  carrierBadge: `${MEDIA}/carrier-factory-authorized-dealer.png`,
+  yearsSeal: `${MEDIA}/60-years-of-service.png`,
+  brandCoolCash: `${MEDIA}/brand_173_2.jpg`,
+  brandPurifier: `${MEDIA}/brand_173_3.jpg`,
+  brandGreenspeed: `${MEDIA}/brand_173_4.jpg`,
+};
 
 export type Accent = "ember" | "glacier" | "ink";
 
@@ -28,6 +42,7 @@ export interface Service {
   stat?: string;
   accent: Accent;
   icon: IconName;
+  img: string;
 }
 
 export const services: Service[] = [
@@ -48,6 +63,7 @@ export const services: Service[] = [
     ],
     accent: "ember",
     icon: "flame",
+    img: `${MEDIA}/Heating.jpg`,
   },
   {
     id: "cooling",
@@ -66,6 +82,7 @@ export const services: Service[] = [
     ],
     accent: "glacier",
     icon: "snowflake",
+    img: `${MEDIA}/Air-Conditioning.jpg`,
   },
   {
     id: "air-quality",
@@ -85,6 +102,7 @@ export const services: Service[] = [
     stat: "The air inside your home can be 2–5× more polluted than the air outside.",
     accent: "glacier",
     icon: "leaf",
+    img: `${MEDIA}/Indoor-Air-Quality-image.jpg`,
   },
   {
     id: "duct-free",
@@ -102,6 +120,7 @@ export const services: Service[] = [
     ],
     accent: "ember",
     icon: "split",
+    img: `${MEDIA}/Duct-Free-System-Heat-Pumps.jpg`,
   },
   {
     id: "packaged",
@@ -119,6 +138,7 @@ export const services: Service[] = [
     ],
     accent: "ink",
     icon: "package",
+    img: `${MEDIA}/Packaged-Units.jpg`,
   },
   {
     id: "water-heaters",
@@ -136,6 +156,7 @@ export const services: Service[] = [
     ],
     accent: "ember",
     icon: "droplet",
+    img: `${MEDIA}/Water-Heaters.jpg`,
   },
   {
     id: "sheet-metal",
@@ -153,6 +174,7 @@ export const services: Service[] = [
     ],
     accent: "ink",
     icon: "metal",
+    img: `${MEDIA}/carrier-1.jpg`,
   },
   {
     id: "duct-sealing",
@@ -171,6 +193,7 @@ export const services: Service[] = [
     stat: "Approximately 20% of conditioned air is lost through leaks and poorly connected ducts.",
     accent: "glacier",
     icon: "gauge",
+    img: `${MEDIA}/Heating.jpg`,
   },
   {
     id: "plumbing",
@@ -188,6 +211,7 @@ export const services: Service[] = [
     ],
     accent: "glacier",
     icon: "wrench",
+    img: `${MEDIA}/Water-Heaters.jpg`,
   },
 ];
 
