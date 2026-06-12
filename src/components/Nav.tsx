@@ -155,7 +155,7 @@ export default function Nav() {
                 {HOURS} · 24/7 Emergency
               </p>
               <p className="text-sm text-paper/50">{ADDRESS}</p>
-              <LogoMark className="h-9 w-9 text-sm !bg-paper !text-ink" />
+              <LogoMark className="h-9 w-auto" />
             </motion.div>
           </motion.div>
         )}

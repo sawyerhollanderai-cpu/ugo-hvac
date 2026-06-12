@@ -1,26 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
+import { IMG } from "@/lib/site";
 
 /**
- * The U° mark — Ugo + degrees. Type-only, renders crisp at any size,
- * no external asset required.
+ * Ugo's real logo, lifted from his original site. Height-scaled with
+ * w-auto so the true aspect ratio is preserved on every surface.
  */
-export function LogoMark({ className = "h-10 w-10" }: { className?: string }) {
+export function LogoMark({
+  className = "h-10 w-auto",
+  priority = false,
+}: {
+  className?: string;
+  priority?: boolean;
+}) {
   return (
-    <span
-      className={`${className} relative inline-flex shrink-0 items-center justify-center rounded-xl bg-ink text-paper`}
-      aria-hidden
-    >
-      <span className="display text-[1.18em] leading-none tracking-tight">
-        U<span className="text-ember">°</span>
-      </span>
-    </span>
+    <Image
+      src={IMG.logo}
+      alt="Ugo DiGrazia Heating & Cooling"
+      width={160}
+      height={120}
+      priority={priority}
+      className={`${className} object-contain`}
+    />
   );
 }
 
 export default function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <Link href="/" className="group flex items-center gap-3">
-      <LogoMark className="h-10 w-10 text-base transition-transform duration-300 group-hover:-rotate-6" />
+    <Link
+      href="/"
+      aria-label="Ugo DiGrazia Heating & Cooling — home"
+      className="group flex items-center gap-3"
+    >
+      <LogoMark className="h-11 w-auto transition-transform duration-300 group-hover:scale-105" />
       <span className="leading-none">
         <span
           className={`display block text-[1.05rem] font-semibold tracking-tight ${
