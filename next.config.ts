@@ -3,7 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      new URL("https://ugodigraziaheatingandcooling.com/wp-content/uploads/**"),
+      {
+        protocol: "https",
+        hostname: "ugodigraziaheatingandcooling.com",
+        pathname: "/wp-content/uploads/**",
+      },
     ],
   },
 };

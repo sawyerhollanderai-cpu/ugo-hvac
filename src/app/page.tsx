@@ -1,470 +1,573 @@
 import Image from "next/image";
 import Link from "next/link";
-import FadeIn from "@/components/FadeIn";
-import HeroSection from "@/components/HeroSection";
+import Reveal from "@/components/Reveal";
+import ThermoDial from "@/components/ThermoDial";
+import Marquee from "@/components/Marquee";
+import Counter from "@/components/Counter";
+import SectionHeading from "@/components/SectionHeading";
+import HeatCoolSplit from "@/components/HeatCoolSplit";
+import Credentials from "@/components/Credentials";
+import CTABand from "@/components/CTABand";
+import {
+  ServiceGlyph,
+  ArrowIcon,
+  StarIcon,
+  PhoneIcon,
+  CheckIcon,
+} from "@/components/icons";
+import {
+  services,
+  IMG,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  LICENSE,
+} from "@/lib/site";
 
-const BASE = "https://ugodigraziaheatingandcooling.com/wp-content/uploads/2023/10";
-
-const services = [
-  {
-    title: "Heating",
-    description:
-      "Gas furnaces, boilers, and heat pumps — installed right and tuned for Connecticut winters. We keep your family warm when it matters most.",
-    img: `${BASE}/Heating.jpg`,
-    href: "/services#heating",
-  },
-  {
-    title: "Air Conditioning",
-    description:
-      "Carrier central AC, ductless splits, and packaged systems. Energy-efficient cooling sized and installed for your home.",
-    img: `${BASE}/Air-Conditioning.jpg`,
-    href: "/services#cooling",
-  },
-  {
-    title: "Indoor Air Quality",
-    description:
-      "Air cleaners, UV lights, humidifiers, and ventilators that make the air inside your home as clean as it can be.",
-    img: `${BASE}/Indoor-Air-Quality-image.jpg`,
-    href: "/services#air-quality",
-  },
-  {
-    title: "Duct-Free Systems",
-    description:
-      "Flexible, energy-efficient mini-split heat pumps for additions, sunrooms, or any space without ductwork.",
-    img: `${BASE}/Duct-Free-System-Heat-Pumps.jpg`,
-    href: "/services#duct-free",
-  },
-  {
-    title: "Sheet Metal Fabrication",
-    description:
-      "In-house custom duct, lab hoods, and specialty exhaust in welded black iron, aluminum, or stainless steel.",
-    img: `${BASE}/carrier-1.jpg`,
-    href: "/services#sheet-metal",
-  },
-  {
-    title: "Water Heaters",
-    description:
-      "Tank and tankless water heater installation and replacement. Hot water on demand, every time.",
-    img: `${BASE}/Water-Heaters.jpg`,
-    href: "/services#water-heaters",
-  },
+const quickPaths = [
+  { label: "Select a new system", href: "/services#heating" },
+  { label: "Repair or replace?", href: "/services#cooling" },
+  { label: "High energy bills", href: "/services#duct-sealing" },
+  { label: "Healthier air", href: "/services#air-quality" },
+  { label: "Time for maintenance", href: "/services#service-agreement" },
 ];
 
 const stats = [
-  { value: "60+", label: "Years Serving CT" },
-  { value: "24/7", label: "Emergency Service" },
-  { value: "A+", label: "Carrier Authorized" },
+  { node: <Counter value={60} suffix="+" />, label: "Years in the trade" },
+  { node: <Counter value={2} />, label: "Generations of DiGrazias" },
+  { node: <>Top <Counter value={20} suffix="%" /></>, label: "Of CT Carrier dealers" },
+  { node: <>24/7</>, label: "Emergency service" },
 ];
 
-const guides = [
-  { label: "Select a New System", href: "/services#heating" },
-  { label: "Repair or Replace?", href: "/services#cooling" },
-  { label: "Energy Bill Concerns", href: "/services#duct-sealing" },
-  { label: "Healthier Home", href: "/services#air-quality" },
-  { label: "Ready for Maintenance", href: "/services#service-agreement" },
-];
-
-const offers = [
+const timeline = [
   {
-    img: `${BASE}/brand_173_2.jpg`,
-    title: "Cool Cash Rebate",
-    description: "Up to $1,650 cash back on qualifying Carrier heating & cooling systems.",
+    year: "1961",
+    text: "Ugo DiGrazia emigrates from Sicily to Hartford with the sheet-metal trade in his hands.",
   },
   {
-    img: `${BASE}/brand_173_3.jpg`,
-    title: "Carrier Infinity® Air Purifier",
-    description: "The most effective way to enhance your home's air quality.",
+    year: "1972",
+    text: "He opens the shop on Franklin Avenue that still carries his name.",
   },
   {
-    img: `${BASE}/brand_173_4.jpg`,
-    title: "Carrier Greenspeed® Intelligence",
-    description: "A breakthrough in high-efficiency home comfort solutions.",
+    year: "2012",
+    text: "The Hartford Courant features the family: “Carrying Carrier for Six Decades on Two Continents.”",
+  },
+  {
+    year: "Today",
+    text: "Ugo Jr. runs the business — same phone number, same standards, top 20% of CT Carrier dealers.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "Consummate professionals & advisors — always available, honest, and extremely knowledgeable.",
-    name: "Hartford Review",
-    rating: 5,
+      "Both father and son came to my rescue. Consummate professionals and advisors — always available, honest, and extremely knowledgeable.",
+    name: "Carol Sexton",
+    detail: "West Hartford · after a gas leak at her home",
   },
   {
     quote:
       "Professionalism, quality, and responsiveness all in one. They showed up on time and got the job done right.",
-    name: "Google Reviewer",
-    rating: 5,
+    name: "Google Review",
+    detail: "Greater Hartford homeowner",
   },
 ];
 
-const serviceArea = [
-  "Berlin", "Bloomfield", "Cromwell", "East Hartford",
-  "Glastonbury", "Hartford", "Kensington", "Manchester",
-  "Newington", "Rocky Hill", "West Hartford", "Wethersfield",
+const offers = [
+  {
+    title: "Cool Cash Rebate",
+    headline: "$1,650",
+    sub: "cash back",
+    copy: "On qualifying Carrier heating & cooling systems. Stack rebates with financing for the lowest out-of-pocket.",
+    accent: "text-ember",
+    img: IMG.brandCoolCash,
+  },
+  {
+    title: "Carrier Infinity®",
+    headline: "Purer air",
+    sub: "whole-home purifier",
+    copy: "The most effective whole-home air purifier Carrier makes — promotional pricing with qualifying installs.",
+    accent: "text-glacier",
+    img: IMG.brandPurifier,
+  },
+  {
+    title: "Greenspeed® Intelligence",
+    headline: "Peak efficiency",
+    sub: "flagship heat pump",
+    copy: "Variable-speed comfort with the lowest operating cost in the lineup. Currently Cool Cash eligible.",
+    accent: "text-ember",
+    img: IMG.brandGreenspeed,
+  },
 ];
-
-const CARD_SHADOW = "0 4px 24px rgba(15,23,42,0.06)";
 
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      {/* ───────────────────────────── Hero */}
+      <section className="relative overflow-hidden">
+        {/* Ambient temperature field */}
+        <div
+          aria-hidden
+          className="absolute -top-40 -left-40 h-[34rem] w-[34rem] rounded-full bg-ember/10 blur-[120px]"
+        />
+        <div
+          aria-hidden
+          className="absolute top-32 -right-48 h-[34rem] w-[34rem] rounded-full bg-glacier/10 blur-[120px]"
+        />
+        <div
+          aria-hidden
+          className="display absolute -right-12 -bottom-24 text-[26rem] leading-none text-ink/[0.04] select-none"
+        >
+          °
+        </div>
 
-      {/* Stats bar */}
-      <section style={{ background: "#f8fafc" }}>
-        <div className="max-w-6xl mx-auto px-6 py-10">
-          <div className="grid grid-cols-3 divide-x" style={{ borderColor: "#e2e8f0" }}>
-            {stats.map(({ value, label }) => (
-              <div key={label} className="text-center px-6">
-                <p className="text-3xl md:text-4xl font-bold" style={{ color: "#f59e0b" }}>
-                  {value}
+        <div className="relative mx-auto max-w-6xl px-6 pt-40 pb-16 md:pt-48 md:pb-20">
+          <div className="grid items-center gap-14 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <Reveal>
+                <p className="eyebrow flex items-center gap-3 text-body">
+                  <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-ember" />
+                  Hartford, Connecticut · Family HVAC since 1972
                 </p>
-                <p className="text-xs md:text-sm mt-1" style={{ color: "#475569" }}>
-                  {label}
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h1 className="display mt-7 text-[clamp(3rem,7.5vw,5.9rem)] text-ink">
+                  <span className="wonk text-ember italic">Warm</span> in
+                  January.
+                  <br />
+                  <span className="wonk text-glacier italic">Cool</span> in
+                  July.
+                </h1>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <p className="mt-7 max-w-xl text-lg leading-relaxed text-body">
+                  Two generations of the DiGrazia family have kept Greater
+                  Hartford comfortable for over fifty years — Carrier
+                  factory-authorized installs, honest repairs, and a phone
+                  that answers at 2 a.m.
                 </p>
-              </div>
-            ))}
+              </Reveal>
+              <Reveal delay={0.24}>
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                  <Link href="/contact" className="btn btn-ember">
+                    Request service
+                    <ArrowIcon className="h-4 w-4" />
+                  </Link>
+                  <a href={PHONE_TEL} className="btn btn-ghost">
+                    <PhoneIcon className="h-4 w-4" strokeWidth={1.8} />
+                    <span className="font-mono text-[0.8rem] tracking-wide">
+                      {PHONE_DISPLAY}
+                    </span>
+                  </a>
+                </div>
+              </Reveal>
+              <Reveal delay={0.32}>
+                <p className="eyebrow mt-10 !text-[0.6rem] text-body/70">
+                  Carrier Factory Authorized{" "}
+                  <span className="text-ember" aria-hidden>✳</span> {LICENSE}{" "}
+                  <span className="text-ember" aria-hidden>✳</span> 24/7
+                  Emergency
+                </p>
+              </Reveal>
+            </div>
+
+            <div className="lg:col-span-5">
+              <Reveal delay={0.2} y={36}>
+                <ThermoDial />
+              </Reveal>
+            </div>
           </div>
+
+          {/* Stats */}
+          <Reveal delay={0.15}>
+            <dl className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4">
+              {stats.map(({ node, label }) => (
+                <div key={label} className="bg-paper px-6 py-7 text-center">
+                  <dt className="sr-only">{label}</dt>
+                  <dd className="display text-4xl text-ink md:text-[2.6rem]">
+                    {node}
+                  </dd>
+                  <dd className="eyebrow mt-2 !text-[0.58rem] text-body/70">
+                    {label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
         </div>
       </section>
 
-      {/* How can we help? */}
-      <section className="pt-20 pb-4 px-6">
-        <div className="max-w-6xl mx-auto">
-          <FadeIn>
-            <div className="text-center mb-10">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-                How Can We Help?
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#0a1628" }}>
-                Where do you want to start?
-              </h2>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-              {guides.map(({ label, href }, i) => (
+      <Marquee />
+
+      {/* ───────────────────────────── Services index */}
+      <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <SectionHeading
+            index="01"
+            eyebrow="What we do"
+            title={
+              <>
+                Every part of{" "}
+                <em className="wonk text-ember italic">home comfort</em>.
+              </>
+            }
+          />
+          <Reveal delay={0.1}>
+            <div className="flex max-w-md flex-wrap gap-2 md:justify-end">
+              {quickPaths.map(({ label, href }) => (
                 <Link
                   key={label}
                   href={href}
-                  className="group relative px-4 py-5 rounded-2xl text-center transition-all duration-200 hover:-translate-y-0.5"
-                  style={{
-                    background: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    boxShadow: CARD_SHADOW,
-                  }}
+                  className="rounded-full border border-line bg-[#fffdf8] px-4 py-2 font-mono text-[0.65rem] tracking-wider text-body uppercase transition-colors duration-200 hover:border-ember hover:text-ember"
                 >
-                  <div
-                    className="w-8 h-8 rounded-full mx-auto mb-3 flex items-center justify-center text-sm font-bold transition-transform duration-200 group-hover:scale-110"
-                    style={{ background: "#fff7ed", color: "#f59e0b" }}
-                  >
-                    {i + 1}
-                  </div>
-                  <p className="text-xs font-semibold leading-tight" style={{ color: "#0a1628" }}>
-                    {label}
-                  </p>
+                  {label}
                 </Link>
               ))}
             </div>
-          </FadeIn>
+          </Reveal>
+        </div>
+
+        <div className="mt-14 border-t border-line">
+          {services.map(({ id, index, title, tagline, icon, accent }, i) => (
+            <Reveal key={id} delay={Math.min(i * 0.04, 0.2)} y={16}>
+              <Link
+                href={`/services#${id}`}
+                className="group grid grid-cols-[auto_auto_1fr_auto] items-center gap-4 border-b border-line py-6 transition-colors duration-300 hover:bg-cream/60 md:grid-cols-[3.5rem_3.5rem_1fr_1fr_3rem] md:gap-6 md:px-4"
+              >
+                <span className="eyebrow text-body/60">{index}</span>
+                <span
+                  className={`flex h-11 w-11 items-center justify-center rounded-full border border-line bg-paper transition-colors duration-300 ${
+                    accent === "ember"
+                      ? "group-hover:border-ember group-hover:text-ember"
+                      : accent === "glacier"
+                        ? "group-hover:border-glacier group-hover:text-glacier"
+                        : "group-hover:border-ink group-hover:text-ink"
+                  }`}
+                >
+                  <ServiceGlyph name={icon} className="h-5 w-5" />
+                </span>
+                <h3 className="display text-2xl text-ink md:text-3xl">
+                  {title}
+                </h3>
+                <p className="hidden text-sm leading-snug text-body md:block">
+                  {tagline}
+                </p>
+                <ArrowIcon className="h-5 w-5 justify-self-end text-ink/30 transition-all duration-300 group-hover:translate-x-1 group-hover:text-ember" />
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Services */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <FadeIn>
-            <div className="mb-14 max-w-xl">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-                What We Do
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#0a1628" }}>
-                Complete Home Comfort Solutions
-              </h2>
-            </div>
-          </FadeIn>
+      {/* ───────────────────────────── Heat / Cool split */}
+      <section className="mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        <Reveal>
+          <HeatCoolSplit />
+        </Reveal>
+      </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map(({ title, description, img, href }, i) => (
-              <FadeIn key={title} delay={i * 0.08}>
-                <Link
-                  href={href}
-                  className="group block rounded-2xl overflow-hidden relative h-full transition-all duration-200 hover:-translate-y-1"
-                  style={{
-                    background: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    boxShadow: CARD_SHADOW,
-                  }}
-                >
-                  <div className="relative h-52 overflow-hidden">
-                    <Image
-                      src={img}
-                      alt={title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(to top, rgba(10,22,40,0.55) 0%, transparent 50%)",
-                      }}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold mb-2" style={{ color: "#0a1628" }}>
-                      {title}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#475569" }}>
-                      {description}
-                    </p>
-                    <p
-                      className="mt-4 text-xs font-semibold uppercase tracking-wide"
-                      style={{ color: "#f59e0b" }}
-                    >
-                      Learn more &rarr;
-                    </p>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
+      {/* ───────────────────────────── Story */}
+      <section className="border-y border-line bg-cream/70">
+        <div className="mx-auto grid max-w-6xl gap-16 px-6 py-24 md:py-32 lg:grid-cols-2">
+          <div>
+            <Reveal>
+              <Image
+                src={IMG.yearsSeal}
+                alt="Recognized by Carrier for 60 years of service"
+                width={104}
+                height={104}
+                className="mb-7 h-24 w-24 object-contain"
+              />
+            </Reveal>
+            <SectionHeading
+              index="02"
+              eyebrow="La famiglia"
+              title={
+                <>
+                  From Sicily to{" "}
+                  <em className="wonk text-ember italic">Franklin Avenue</em>.
+                </>
+              }
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-7 max-w-lg text-base leading-relaxed text-body">
+                Ugo DiGrazia emigrated from Sicily to Hartford in 1961 and
+                founded the company in 1972. Through energy crises,
+                recessions, and every generation of HVAC technology since,
+                the family&apos;s sales have consistently ranked in the top
+                20% of independent Carrier dealers in Connecticut.
+              </p>
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-body">
+                Today his son Ugo Jr. carries on the trade. We&apos;re not a
+                call center — we&apos;re your neighbors. When you call, you
+                get honest answers, fair pricing, and technicians who treat
+                your home like their own.
+              </p>
+              <Link href="/about" className="btn btn-ink mt-9">
+                Read our story
+                <ArrowIcon className="h-4 w-4" />
+              </Link>
+            </Reveal>
           </div>
 
-          <FadeIn delay={0.2}>
-            <div className="mt-10 text-center">
+          <Reveal delay={0.15}>
+            <ol className="relative space-y-10 border-l-2 border-transparent pl-8 [border-image:linear-gradient(to_bottom,var(--color-glacier),var(--color-ember))_1]">
+              {timeline.map(({ year, text }) => (
+                <li key={year} className="relative">
+                  <span
+                    aria-hidden
+                    className="absolute top-1.5 -left-[2.42rem] h-3 w-3 rounded-full border-2 border-paper bg-ink"
+                  />
+                  <p className="display text-3xl text-ink italic">{year}</p>
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-body">
+                    {text}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ───────────────────────────── Sheet metal */}
+      <section className="relative overflow-hidden bg-ink">
+        <div aria-hidden className="dot-grid absolute inset-0 opacity-30" />
+        <div
+          aria-hidden
+          className="absolute -top-40 right-0 h-96 w-96 rounded-full bg-ember/15 blur-[120px]"
+        />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-16 px-6 py-24 md:py-32 lg:grid-cols-2">
+          <div>
+            <SectionHeading
+              index="03"
+              eyebrow="In-house fabrication"
+              dark
+              title={
+                <>
+                  We bend our own{" "}
+                  <em className="wonk text-amber italic">metal</em>.
+                </>
+              }
+              description="Most contractors order ductwork from a third-party shop and wait. Ours is fabricated in-house — custom duct, lab hoods, and specialty exhaust, cut and welded to fit your home exactly."
+            />
+            <Reveal delay={0.12}>
+              <ul className="mt-9 grid max-w-md grid-cols-2 gap-x-6 gap-y-3">
+                {[
+                  "Welded black iron",
+                  "Aluminum",
+                  "Stainless steel",
+                  "Custom duct systems",
+                  "Lab hoods",
+                  "Specialty exhaust",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-2.5 font-mono text-[0.72rem] tracking-wider text-paper/70 uppercase"
+                  >
+                    <CheckIcon className="h-3.5 w-3.5 shrink-0 text-amber" strokeWidth={2.2} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
               <Link
-                href="/services"
-                className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200"
-                style={{
-                  background: "#ffffff",
-                  color: "#0a1628",
-                  border: "1px solid #e2e8f0",
-                  boxShadow: CARD_SHADOW,
-                }}
+                href="/services#sheet-metal"
+                className="btn btn-ghost-dark mt-10"
               >
-                See All Services &rarr;
+                About our shop
+                <ArrowIcon className="h-4 w-4" />
               </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+            </Reveal>
+          </div>
 
-      {/* About strip */}
-      <section className="py-24 px-6" style={{ background: "#f8fafc" }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <FadeIn direction="left">
-            <div
-              className="relative rounded-2xl overflow-hidden aspect-[4/3]"
-              style={{ background: "#ffffff", border: "1px solid #e2e8f0", boxShadow: CARD_SHADOW }}
-            >
-              <Image
-                src={`${BASE}/60-years-of-service.png`}
-                alt="60 Years of Service"
-                fill
-                className="object-contain p-8"
+          <Reveal delay={0.18}>
+            <div className="relative rounded-3xl border border-paper/15 bg-ink-2/80 p-8 md:p-10">
+              <ServiceGlyph
+                name="metal"
+                className="absolute -right-8 -bottom-8 h-48 w-48 text-paper/[0.05]"
+                strokeWidth={1}
               />
+              <p className="eyebrow text-amber">Shop ticket · № 1972</p>
+              <dl className="mt-7 space-y-5">
+                {[
+                  ["Material", "Galvanized steel · 26 ga"],
+                  ["Seam", "Pittsburgh lock, hand-finished"],
+                  ["Fit", "Measured on site, built to the inch"],
+                  ["Turnaround", "No third-party shop. No waiting."],
+                ].map(([k, v]) => (
+                  <div
+                    key={k}
+                    className="flex items-baseline justify-between gap-6 border-b border-paper/10 pb-4"
+                  >
+                    <dt className="eyebrow !text-[0.6rem] text-paper/45">
+                      {k}
+                    </dt>
+                    <dd className="text-right font-mono text-[0.78rem] text-paper/85">
+                      {v}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="display mt-7 text-xl text-paper/80 italic">
+                “If it doesn&apos;t fit perfectly, we remake it.”
+              </p>
             </div>
-          </FadeIn>
-          <FadeIn direction="right">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-              Our Story
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: "#0a1628" }}>
-              Trusted by Hartford Families for Over 60 Years
-            </h2>
-            <p className="text-base leading-relaxed mb-6" style={{ color: "#475569" }}>
-              Founder Ugo DiGrazia emigrated from Sicily to Hartford in 1961
-              and started the business in 1972. Today his son Ugo Jr. carries
-              on the family trade — and the company still ranks in the top
-              20% of independent Carrier dealers in Connecticut.
-            </p>
-            <p className="text-base leading-relaxed mb-8" style={{ color: "#475569" }}>
-              We&apos;re not a call center — we&apos;re your neighbors. When you
-              call us, you get honest answers, fair pricing, and technicians who
-              treat your home like their own.
-            </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200"
-              style={{ background: "#1e6fbf", color: "#ffffff" }}
-            >
-              Our Story
-            </Link>
-          </FadeIn>
+          </Reveal>
         </div>
       </section>
 
-      {/* Current Offers */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-                  Current Offers
-                </p>
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#0a1628" }}>
-                  Carrier Promotions Available Now
-                </h2>
-              </div>
+      {/* ───────────────────────────── Credentials */}
+      <section className="border-t border-line bg-cream/70 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <SectionHeading
+            index="04"
+            eyebrow="Certified · recognized · licensed"
+            title={
+              <>
+                Credentials you can{" "}
+                <em className="wonk text-ember italic">check</em>.
+              </>
+            }
+            description="Carrier Factory-Authorized, recognized for six decades of service, and a fully licensed Connecticut contractor. The real badges from a real shop."
+          />
+          <div className="mt-14">
+            <Credentials />
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────── Maintenance teaser */}
+      <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <Reveal>
+          <Link
+            href="/services#service-agreement"
+            className="group flex flex-col gap-8 rounded-[2rem] border border-line bg-[#fffdf8] p-8 transition-all duration-300 hover:border-ember/40 hover:shadow-[0_30px_60px_-30px_rgba(224,84,16,0.25)] md:flex-row md:items-center md:justify-between md:p-12"
+          >
+            <div className="max-w-2xl">
+              <p className="eyebrow text-ember">The Service Agreement</p>
+              <h2 className="display mt-4 text-3xl text-ink md:text-4xl">
+                Two tune-ups a year. Priority at 2 a.m. 10% off everything
+                that breaks.
+              </h2>
+              <p className="mt-4 text-base text-body">
+                Annual coverage that pays for itself — and a furnace that
+                never surprises you in February.
+              </p>
+            </div>
+            <span className="btn btn-ink shrink-0 group-hover:bg-ember">
+              See the plan
+              <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* ───────────────────────────── Testimonials */}
+      <section className="border-y border-line bg-cream/70 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <SectionHeading
+            index="05"
+            eyebrow="In their words"
+            title={
+              <>
+                The neighbors{" "}
+                <em className="wonk text-ember italic">talk</em>.
+              </>
+            }
+            align="center"
+          />
+          <div className="mt-16 grid gap-6 md:grid-cols-2">
+            {testimonials.map(({ quote, name, detail }, i) => (
+              <Reveal key={name} delay={i * 0.12}>
+                <figure className="relative h-full rounded-3xl border border-line bg-paper p-9 md:p-11">
+                  <span
+                    aria-hidden
+                    className="display absolute top-2 left-6 text-[6rem] leading-none text-ember/15 italic"
+                  >
+                    “
+                  </span>
+                  <div className="relative">
+                    <div className="flex gap-1 text-amber">
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <StarIcon key={j} className="h-4 w-4" />
+                      ))}
+                    </div>
+                    <blockquote className="display mt-6 text-2xl leading-snug text-ink md:text-[1.7rem]">
+                      {quote}
+                    </blockquote>
+                    <figcaption className="mt-7">
+                      <p className="font-medium text-ink">{name}</p>
+                      <p className="eyebrow mt-1 !text-[0.58rem] text-body/60">
+                        {detail}
+                      </p>
+                    </figcaption>
+                  </div>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────── Offers */}
+      <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <SectionHeading
+            index="06"
+            eyebrow="Current offers"
+            title={
+              <>
+                Carrier promotions,{" "}
+                <em className="wonk text-ember italic">on now</em>.
+              </>
+            }
+          />
+          <Reveal delay={0.1}>
+            <Link
+              href="/financing"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-ember"
+            >
+              Financing &amp; all offers
+              <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {offers.map(({ title, headline, sub, copy, accent, img }, i) => (
+            <Reveal key={title} delay={i * 0.08}>
               <Link
                 href="/financing"
-                className="text-sm font-semibold whitespace-nowrap"
-                style={{ color: "#f59e0b" }}
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-[#fffdf8] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-35px_rgba(21,28,37,0.4)]"
               >
-                View financing options &rarr;
-              </Link>
-            </div>
-          </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {offers.map(({ img, title, description }, i) => (
-              <FadeIn key={title} delay={i * 0.1}>
-                <Link
-                  href="/financing"
-                  className="group block rounded-2xl overflow-hidden h-full transition-all duration-200 hover:-translate-y-1"
-                  style={{
-                    background: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    boxShadow: CARD_SHADOW,
-                  }}
-                >
-                  <div
-                    className="relative h-44 overflow-hidden flex items-center justify-center"
-                    style={{ background: "#f1f5f9" }}
-                  >
-                    <Image
-                      src={img}
-                      alt={title}
-                      fill
-                      className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-base font-semibold mb-2" style={{ color: "#0a1628" }}>
-                      {title}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "#475569" }}>
-                      {description}
-                    </p>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-24 px-6" style={{ background: "#f8fafc" }}>
-        <div className="max-w-4xl mx-auto">
-          <FadeIn>
-            <div className="text-center mb-14">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-                Customer Reviews
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "#0a1628" }}>
-                What Our Customers Say
-              </h2>
-            </div>
-          </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map(({ quote, name, rating }, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div
-                  className="p-8 rounded-2xl h-full"
-                  style={{
-                    background: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    boxShadow: CARD_SHADOW,
-                  }}
-                >
-                  <div className="flex gap-0.5 mb-4">
-                    {Array.from({ length: rating }).map((_, j) => (
-                      <span key={j} style={{ color: "#f59e0b" }}>★</span>
-                    ))}
-                  </div>
-                  <p className="text-base leading-relaxed mb-6 italic" style={{ color: "#334155" }}>
-                    &ldquo;{quote}&rdquo;
-                  </p>
-                  <p className="text-sm font-medium" style={{ color: "#475569" }}>
-                    — {name}
-                  </p>
+                <div className="relative h-44 overflow-hidden border-b border-line bg-cream">
+                  <Image
+                    src={img}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Service area */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <FadeIn>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f59e0b" }}>
-              Coverage Area
-            </p>
-            <h2 className="text-2xl font-bold mb-8" style={{ color: "#0a1628" }}>
-              Proudly Serving Greater Hartford
-            </h2>
-            <div className="flex flex-wrap justify-center gap-3">
-              {serviceArea.map((town) => (
-                <span
-                  key={town}
-                  className="px-4 py-2 rounded-full text-sm"
-                  style={{
-                    background: "#f1f5f9",
-                    color: "#0a1628",
-                    border: "1px solid #e2e8f0",
-                  }}
-                >
-                  {town}
-                </span>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* CTA — kept as dark feature block */}
-      <section className="py-24 px-6">
-        <FadeIn>
-          <div
-            className="max-w-4xl mx-auto rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
-            style={{
-              background: "linear-gradient(135deg, #1e6fbf 0%, #0a1628 100%)",
-              border: "1px solid rgba(30,111,191,0.3)",
-            }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#ffffff" }}>
-              Ready for Year-Round Comfort?
-            </h2>
-            <p className="text-base mb-8 max-w-xl mx-auto" style={{ color: "#bfdbfe" }}>
-              Whether you need a quick repair or a full system replacement, our
-              team is ready to help. Call us or request service online.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="tel:8602961281"
-                className="px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200"
-                style={{ background: "#f59e0b", color: "#0a1628" }}
-              >
-                Call 860-296-1281
-              </a>
-              <Link
-                href="/contact"
-                className="px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200"
-                style={{
-                  background: "rgba(255,255,255,0.1)",
-                  color: "#ffffff",
-                  border: "1px solid rgba(255,255,255,0.3)",
-                }}
-              >
-                Request Service
+                <div className="flex flex-1 flex-col p-8">
+                  <p className="eyebrow text-body/60">{title}</p>
+                  <p className={`display mt-4 text-4xl ${accent}`}>{headline}</p>
+                  <p className="eyebrow mt-1 !text-[0.6rem] text-body/60">
+                    {sub}
+                  </p>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-body">
+                    {copy}
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ink">
+                    Details
+                    <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </div>
               </Link>
-            </div>
-          </div>
-        </FadeIn>
+            </Reveal>
+          ))}
+        </div>
       </section>
+
+      <CTABand />
     </>
   );
 }
